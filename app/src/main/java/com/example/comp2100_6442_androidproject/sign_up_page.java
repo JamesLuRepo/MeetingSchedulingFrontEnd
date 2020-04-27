@@ -20,18 +20,21 @@ public class sign_up_page extends AppCompatActivity {
 //        Intent intent = new Intent(NewActivity.this, MainActivity.class);
 //        startActivity(intent);
         finish();
-
     }
 
+
+    // execute this part of code when click on Back Home
     public void BackHome(View v){
         finish();
     }
 
+    // execute this part of code when click on Send Verification Code
     public void SendVerificationCode(View v){
         Toast toast = Toast.makeText(getApplicationContext(), "The verification code has been sent to your email, please check.", Toast.LENGTH_SHORT);
         toast.show();
     }
 
+    // execute this part of code when click on Sign up button in sign up page
     public void Sign_up_successful_button(View v){
         Toast toast = Toast.makeText(getApplicationContext(), "you have already Sign up!", Toast.LENGTH_SHORT);
         toast.show();
