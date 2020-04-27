@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+    <!--send verification code-->
     <TextView
         android:id="@+id/sendVerificationCodeButton"
         android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUpEmailAddress" />
-
+    <!--back home-->
     <TextView
         android:id="@+id/BackHomeSignUpPage"
         android:layout_width="wrap_content"
@@ -43,6 +43,7 @@
         app:layout_constraintEnd_toStartOf="@+id/BackImage"
         app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
+    <!--verification edit text-->
     <EditText
         android:id="@+id/editText4"
         android:layout_width="wrap_content"
@@ -70,7 +71,7 @@
         app:srcCompat="@android:drawable/ic_menu_revert" />
 
     <Button
-        android:id="@+id/SignUpButton"
+        android:id="@+id/SignUp"
         android:layout_width="86dp"
         android:layout_height="45dp"
         android:layout_marginTop="50dp"
