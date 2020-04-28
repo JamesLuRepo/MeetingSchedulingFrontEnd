@@ -26,7 +26,7 @@ import okhttp3.ResponseBody;
 
 public class sign_up_page extends AppCompatActivity {
     private static final String TAG = "sign_up_page";
-    public static final String BASE_URL = "http://192.168.1.100:8080";
+    public static final String BASE_URL = "http://49.234.105.82:8080";
 
     EditText emailAddressEditText;
     EditText verificationCodeEditText;
