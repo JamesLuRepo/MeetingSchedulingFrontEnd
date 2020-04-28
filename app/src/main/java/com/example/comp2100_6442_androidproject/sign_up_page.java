@@ -46,7 +46,6 @@ public class sign_up_page extends AppCompatActivity {
         verificationCodeEditText = findViewById(R.id.editText4);
         nameEditText = findViewById(R.id.AccountName);
         passwordEditText = findViewById(R.id.editText2);
-
     }
 
     public void backButton(View v) {
@@ -70,7 +69,8 @@ public class sign_up_page extends AppCompatActivity {
                 + "&verificationCode=" + correctVerificationCode;
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(10000, TimeUnit.MILLISECONDS)
+                .connectTimeout(59000, TimeUnit.MILLISECONDS)
+                .readTimeout(59000, TimeUnit.MILLISECONDS)
                 .build();
 
         Request request = new Request.Builder()
@@ -92,8 +92,10 @@ public class sign_up_page extends AppCompatActivity {
                 Log.d(TAG, "code: " + code);
                 if (code == HttpURLConnection.HTTP_OK) {
                     ResponseBody body = response.body();
-                    isMailExist = body.toString().equals("1");
-                    Log.d(TAG, "body: " + body.toString());
+                    String s = body.string();
+                    isMailExist = s.trim().equals("1");
+                    Log.d(TAG, "body: " + s);
+                    Log.d(TAG, "onResponse: ismailexist"+isMailExist);
                 }
             }
         });
@@ -115,11 +117,13 @@ public class sign_up_page extends AppCompatActivity {
         String name = nameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
-        if ("".equals(email) || "".equals(verificationCode) || "".equals(name) || "".equals(password)) {
+        if ("".equals(email) || "".equals(name) ||"".equals(verificationCode)|| "".equals(password)) {
             Toast.makeText(this, "please fill in the blanks", Toast.LENGTH_SHORT).show();
-        } else if (!verificationCode.equals(correctVerificationCode)) {
+        } else
+        if (!verificationCode.equals(correctVerificationCode)) {
             Toast.makeText(this, "please input the correct verification code", Toast.LENGTH_SHORT).show();
-        } else if (isMailExist) {
+        } else
+            if (isMailExist) {
             Toast.makeText(this, "the email has existed", Toast.LENGTH_SHORT).show();
         } else {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -148,14 +152,13 @@ public class sign_up_page extends AppCompatActivity {
                     Log.d(TAG, "code: " + code);
                     if (code == HttpURLConnection.HTTP_OK) {
                         ResponseBody body = response.body();
-                        isMailExist = body.toString().equals("1");
-                        Log.d(TAG, "body: " + body.toString());
+                        Log.d(TAG, "body: " + body.string());
                     }
                 }
             });
-//        }
             Toast toast = Toast.makeText(getApplicationContext(), "you have already Sign up!", Toast.LENGTH_SHORT);
             toast.show();
+            this.backButton(null);
         }
 
     }
