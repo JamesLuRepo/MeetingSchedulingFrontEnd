@@ -26,14 +26,16 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class SignUpPage extends AppCompatActivity {
+    //TAG for testing
     private static final String TAG = "SignUpPage";
+    //This is the ip and port of my server
     public static final String BASE_URL = "http://49.234.105.82:8080";
 
     EditText emailAddressEditText;
     EditText verificationCodeEditText;
     EditText nameEditText;
     EditText passwordEditText;
-
+    //save verification code to verify
     String correctVerificationCode;
 
     Boolean isMailExist;
@@ -49,9 +51,8 @@ public class SignUpPage extends AppCompatActivity {
         passwordEditText = findViewById(R.id.editText2);
     }
 
+    //back to mainActivity
     public void backButton(View v) {
-//        Intent intent = new Intent(NewActivity.this, MainActivity.class);
-//        startActivity(intent);
         finish();
     }
 
@@ -64,29 +65,32 @@ public class SignUpPage extends AppCompatActivity {
     // execute this part of code when click on Send Verification Code
     public void SendVerificationCode(View v) {
         emailAddressEditText = findViewById(R.id.signUpEmailAddress);
+        //create a random number as verification code
         int r = (int) (1000 + Math.random() * 8999);
         correctVerificationCode = r + "";
+        //request parameter
         String parameter = "?email=" + emailAddressEditText.getText().toString().trim()
                 + "&verificationCode=" + correctVerificationCode;
-
+        //browser 59 seconds' waiting time
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(59000, TimeUnit.MILLISECONDS)
                 .readTimeout(59000, TimeUnit.MILLISECONDS)
                 .build();
-
+        //build request
         Request request = new Request.Builder()
                 .get()
                 .url(BASE_URL + "/ms/sendVerificationCode" + parameter)
                 .build();
-
+        //connect
         Call task = okHttpClient.newCall(request);
-
+        //asynchronous connection which does not need open a new thread
         task.enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.d(TAG, "onFailure: " + e.toString());
             }
 
+            //get response
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 int code = response.code();
@@ -94,9 +98,10 @@ public class SignUpPage extends AppCompatActivity {
                 if (code == HttpURLConnection.HTTP_OK) {
                     ResponseBody body = response.body();
                     String s = body.string();
+                    //get the result that whether the email is exist
                     isMailExist = s.trim().equals("1");
                     Log.d(TAG, "body: " + s);
-                    Log.d(TAG, "onResponse: ismailexist"+isMailExist);
+                    Log.d(TAG, "onResponse: ismailexist" + isMailExist);
                 }
             }
         });
@@ -117,15 +122,16 @@ public class SignUpPage extends AppCompatActivity {
         String verificationCode = verificationCodeEditText.getText().toString().trim();
         String name = nameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
-
-        if ("".equals(email) || "".equals(name) ||"".equals(verificationCode)|| "".equals(password)) {
+        //check empty blanks
+        if ("".equals(email) || "".equals(name) || "".equals(verificationCode) || "".equals(password)) {
             Toast.makeText(this, "please fill in the blanks", Toast.LENGTH_SHORT).show();
-        } else
-        if (!verificationCode.equals(correctVerificationCode)) {
+            //check verification code
+        } else if (!verificationCode.equals(correctVerificationCode)) {
             Toast.makeText(this, "please input the correct verification code", Toast.LENGTH_SHORT).show();
-        } else
-            if (isMailExist) {
+            //check whether the email has been existed
+        } else if (isMailExist) {
             Toast.makeText(this, "the email has existed", Toast.LENGTH_SHORT).show();
+            //connect and save the user information
         } else {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .connectTimeout(10000, TimeUnit.MILLISECONDS)
@@ -157,6 +163,7 @@ public class SignUpPage extends AppCompatActivity {
                     }
                 }
             });
+            //toast and back
             Toast toast = Toast.makeText(getApplicationContext(), "you have already Sign up!", Toast.LENGTH_SHORT);
             toast.show();
             this.backButton(null);

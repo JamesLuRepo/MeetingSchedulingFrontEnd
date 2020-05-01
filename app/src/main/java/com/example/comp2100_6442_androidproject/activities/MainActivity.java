@@ -28,6 +28,7 @@ import okhttp3.ResponseBody;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "mainActivity";
+    //do not use localhost, because the default localhost is 127.0.0.1 which is not correct
     public static final String BASE_URL = "http://49.234.105.82:8080"; // on the cloud server
 //    public static final String BASE_URL = "http://192.168.1.100:8080";//local for test
 
@@ -53,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
     // execute this part of code when click on Log in button
     public void Log_in_button(View v) {
+        //connect to the server
         logIn();
+        // the progressDialog to wait for the respond
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Checking...");
         progressDialog.show();
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {// delay 5 millis and then run this
                 progressDialog.dismiss();
+                //dismiss the dialog and Toast or switch activity
                 if (logInResult.equals("successful")) {
                     Intent intent = new Intent(MainActivity.this, DashBoard.class);
                     startActivity(intent);
@@ -68,20 +72,21 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Your email or password does not exist", Toast.LENGTH_SHORT).show();
                 }
             }
+            //waiting seconds
         }, 3500);
     }
 
 
     private void logIn() {
 
-
+        // check the blank
         if (emailEditText.getText().toString().trim().isEmpty()
                 || passwordEditText.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "please fill in the blanks", Toast.LENGTH_SHORT).show();
             return;
         }
 
-
+        //the following are connections
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(20000, TimeUnit.MILLISECONDS)
                 .readTimeout(20000, TimeUnit.MILLISECONDS)
@@ -109,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "code: " + code);
                 if (code == HttpURLConnection.HTTP_OK) {
                     ResponseBody body = response.body();
+                    //save the log in result to decide what to do next
                     logInResult = body.string();
                     Log.d(TAG, "body: " + logInResult);
 
