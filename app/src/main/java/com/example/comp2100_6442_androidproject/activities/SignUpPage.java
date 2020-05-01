@@ -1,4 +1,4 @@
-package com.example.comp2100_6442_androidproject;
+package com.example.comp2100_6442_androidproject.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.comp2100_6442_androidproject.R;
 import com.example.comp2100_6442_androidproject.domain.User;
 
 import org.jetbrains.annotations.NotNull;
@@ -24,8 +25,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class sign_up_page extends AppCompatActivity {
-    private static final String TAG = "sign_up_page";
+public class SignUpPage extends AppCompatActivity {
+    private static final String TAG = "SignUpPage";
     public static final String BASE_URL = "http://49.234.105.82:8080";
 
     EditText emailAddressEditText;
