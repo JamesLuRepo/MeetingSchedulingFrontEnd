@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.comp2100_6442_androidproject.R;
 import com.example.comp2100_6442_androidproject.domain.User;
+import com.example.comp2100_6442_androidproject.utils.ConnectionTemplate;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -28,8 +29,6 @@ import okhttp3.ResponseBody;
 public class SignUpPage extends AppCompatActivity {
     //TAG for testing
     private static final String TAG = "SignUpPage";
-    //This is the ip and port of my server
-    public static final String BASE_URL = "http://49.234.105.82:8080";
 
     EditText emailAddressEditText;
     EditText verificationCodeEditText;
@@ -51,11 +50,10 @@ public class SignUpPage extends AppCompatActivity {
         passwordEditText = findViewById(R.id.editText2);
     }
 
-    //back to mainActivity
+    //back to LogInPage
     public void backButton(View v) {
         finish();
     }
-
 
     // execute this part of code when click on Back Home
     public void BackHome(View v) {
@@ -71,18 +69,8 @@ public class SignUpPage extends AppCompatActivity {
         //request parameter
         String parameter = "?email=" + emailAddressEditText.getText().toString().trim()
                 + "&verificationCode=" + correctVerificationCode;
-        //browser 59 seconds' waiting time
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(59000, TimeUnit.MILLISECONDS)
-                .readTimeout(59000, TimeUnit.MILLISECONDS)
-                .build();
-        //build request
-        Request request = new Request.Builder()
-                .get()
-                .url(BASE_URL + "/ms/sendVerificationCode" + parameter)
-                .build();
-        //connect
-        Call task = okHttpClient.newCall(request);
+
+        Call task = ConnectionTemplate.getConnection("/sendVerificationCode", parameter);
         //asynchronous connection which does not need open a new thread
         task.enqueue(new Callback() {
             @Override
@@ -112,7 +100,6 @@ public class SignUpPage extends AppCompatActivity {
             Toast toast = Toast.makeText(getApplicationContext(), "The verification code has been sent to your email, please check.", Toast.LENGTH_SHORT);
             toast.show();
         }
-
     }
 
     // execute this part of code when click on Sign up button in sign up page
@@ -133,20 +120,12 @@ public class SignUpPage extends AppCompatActivity {
             Toast.makeText(this, "the email has existed", Toast.LENGTH_SHORT).show();
             //connect and save the user information
         } else {
-            OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .connectTimeout(10000, TimeUnit.MILLISECONDS)
-                    .build();
 
             String parameter = "?email=" + email
                     + "&name=" + name
                     + "&password=" + password;
-            Request request = new Request.Builder()
-                    .get()
-                    .url(BASE_URL + "/ms/signUp" + parameter)
-                    .build();
 
-            Call task = okHttpClient.newCall(request);
-
+            Call task = ConnectionTemplate.getConnection("/signUp", parameter);
             task.enqueue(new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
