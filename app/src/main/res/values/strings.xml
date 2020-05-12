@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">comp2100-6442-AndroidProject</string>
+    <string name="title_activity_home_page">HomePage</string>
+    <string name="title_groups">Group</string>
+    <string name="title_schedule">Schedule</string>
+    <string name="title_settings">Settings</string>
 </resources>

@@ -13,15 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.LogInPage"></activity>
+
+        <activity android:name=".activities.LogInPage" />
         <activity android:name=".activities.SignUpPage" />
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.HomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<!--        <activity-->
+<!--            android:name=".activities.HomePage"-->
+<!--            android:label="@string/title_activity_home_page"></activity>-->
     </application>
 
 </manifest>
