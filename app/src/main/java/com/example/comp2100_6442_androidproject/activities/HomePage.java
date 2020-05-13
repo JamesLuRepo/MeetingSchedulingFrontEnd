@@ -18,9 +18,10 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = new Intent(this, LogInPage.class);
+        setContentView(R.layout.activity_home_page);
         startActivity(intent);
 //        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
