@@ -1,10 +1,12 @@
 package com.example.comp2100_6442_androidproject.activities;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.comp2100_6442_androidproject.R;
 import com.example.comp2100_6442_androidproject.domain.Gps;
+import com.example.comp2100_6442_androidproject.domain.Meeting;
 import com.example.comp2100_6442_androidproject.domain.ScheduleShow;
 import com.example.comp2100_6442_androidproject.utils.ConnectionTemplate;
 import com.google.gson.Gson;
@@ -45,10 +48,12 @@ public class HomePage extends AppCompatActivity {
     List<Gps> gpsList;
     List<String> groupNames;
     List<String> groupDescriptions;
+    List<String> gpsId;
 
     List<ScheduleShow> scheduleList;
     List<String> scheduleNames;
     List<String> scheduleDescriptions;
+    List<String> scheduleMid;
 
     Gson gson = new Gson();
     private boolean isSecondTime = false;
@@ -78,8 +83,11 @@ public class HomePage extends AppCompatActivity {
 
         groupNames = new ArrayList<>();
         groupDescriptions = new ArrayList<>();
+        gpsId = new ArrayList<>();
         scheduleDescriptions = new ArrayList<>();
         scheduleNames = new ArrayList<>();
+        scheduleMid = new ArrayList<>();
+
         startActivity(intent);
         setContentView(R.layout.activity_home_page);
 
@@ -98,7 +106,7 @@ public class HomePage extends AppCompatActivity {
         super.onResume();
         updateHomePage();
     }
-
+    //actually this is meeting page
     private void updateHomePage() {
 
         if (isSecondTime) {
@@ -109,7 +117,7 @@ public class HomePage extends AppCompatActivity {
             for (int i = 0; i < groupNames.size(); i++) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("icon", R.mipmap.groups_img);
-                map.put("name", groupNames.get(i));
+                map.put("name", "G"+gpsId.get(i)+":"+groupNames.get(i));
                 map.put("description", groupDescriptions.get(i));
                 listItems.add(map);
             }
@@ -121,7 +129,28 @@ public class HomePage extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
-                    Toast.makeText(HomePage.this, map.get("name").toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HomePage.this, map.get("name").toString().split(":")[1], Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences.Editor editor = getSharedPreferences("localDataBase",MODE_PRIVATE).edit();
+                    //When click one group, the group name and the group description will be saved into the lacal database
+                    editor.putString("gpsName",map.get("name").toString().split(":")[1]);
+                    editor.putString("gpsDescription",map.get("description").toString());
+                    editor.putString("gpsId",map.get("name").toString().split(":")[0]);
+                    editor.commit();
+
+                    final ProgressDialog progressDialog = new ProgressDialog(HomePage.this);
+                    progressDialog.setMessage("Loading...");
+                    progressDialog.show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {// delay 3.5 millis and then run this
+                            progressDialog.dismiss();
+                            //TODO: PUT THE CODE HERE TO OPEN THE GROUP INFORMATION ACTIVITY FROM THE GROUP LIST
+
+
+                        }
+                        //waiting seconds
+                    }, 3500);
                 }
             });
         } else {
@@ -137,8 +166,8 @@ public class HomePage extends AppCompatActivity {
         for (int i = 0; i < scheduleNames.size(); i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("icon", R.mipmap.meetings_img);
-            map.put("name", scheduleNames.get(i));
-            map.put("description", scheduleDescriptions.get(i));
+            map.put("name", "M"+scheduleMid.get(i)+":"+scheduleNames.get(i));
+            map.put("description", scheduleDescriptions.get(i)+"&"+scheduleMid.get(i));
             listItems.add(map);
         }
         SimpleAdapter adapter = new SimpleAdapter(this, listItems,
@@ -149,15 +178,37 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
-                Toast.makeText(HomePage.this, map.get("name").toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomePage.this, map.get("name").toString().split(":")[1], Toast.LENGTH_SHORT).show();
+
+                getMeetingInformation(map.get("name").toString().split(":")[0]);
+                // the progressDialog to wait for the respond
+                final ProgressDialog progressDialog = new ProgressDialog(HomePage.this);
+                progressDialog.setMessage("Loading...");
+                progressDialog.show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {// delay 3.5 millis and then run this
+                        progressDialog.dismiss();
+                        //TODO: PUT THE CODE HERE TO OPEN THE MEETING INFORMATION ACTIVITY FROM THE SCHEDULE LIST
+
+
+                    }
+                    //waiting seconds
+                }, 3500);
+
+
             }
         });
     }
 
 
+
     private void getGroups() {
-        SharedPreferences sp = getSharedPreferences("emailDataBase", Context.MODE_PRIVATE);
+        // get data from the local database
+        SharedPreferences sp = getSharedPreferences("localDataBase", Context.MODE_PRIVATE);
         email = sp.getString("email", "");
+
+
         String parameter = "?email=" + this.email;
         Call task = ConnectionTemplate.getConnection("/userGroups", parameter);
         task.enqueue(new Callback() {
@@ -183,6 +234,7 @@ public class HomePage extends AppCompatActivity {
                     for (Gps gps : gpsList) {
                         groupNames.add(gps.getName());
                         groupDescriptions.add(gps.getDescription());
+                        gpsId.add(gps.getGid()+"");
                     }
                 }
             }
@@ -190,7 +242,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     private void getSchedules() {
-        SharedPreferences sp = getSharedPreferences("emailDataBase", Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("localDataBase", Context.MODE_PRIVATE);
         email = sp.getString("email", "");
         String parameter = "?email=" + this.email;
         Call task = ConnectionTemplate.getConnection("/userSchedule", parameter);
@@ -217,7 +269,46 @@ public class HomePage extends AppCompatActivity {
                     for (ScheduleShow scheduleShow : scheduleList) {
                         scheduleNames.add(scheduleShow.getName());
                         scheduleDescriptions.add(scheduleShow.getInfo());
+                        scheduleMid.add(scheduleShow.getMid()+"");
+
                     }
+                }
+            }
+        });
+    }
+    private void getMeetingInformation(String mid){
+        String parameter = "?mid=" + mid;
+        Call task = ConnectionTemplate.getConnection("/getMeetingInformation", parameter);
+        task.enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.d(TAG, "onFailure: " + e.toString());
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                int code = response.code();
+                Log.d(TAG, "code: " + code);
+                if (code == HttpURLConnection.HTTP_OK) {
+                    ResponseBody body = response.body();
+
+                    String bodyString = body.string();
+                    Log.d(TAG, "body: " + bodyString);
+                    Meeting meeting = gson.fromJson(bodyString, Meeting.class);
+                    Log.d(TAG, "meeting: " + meeting);
+
+
+                    SharedPreferences.Editor editor = getSharedPreferences("localDataBase",MODE_PRIVATE).edit();
+                    //When click one schedule, the the meeting information will be saved into the local database
+                    editor.putString("meetingName",meeting.getName());
+                    editor.putString("meetingNotes",meeting.getNotes());
+                    editor.putString("meetingHoldTime",meeting.getHoldTime());
+                    editor.putString("meetingTimeLength",meeting.getTimeLength()+" minutes");
+                    editor.putString("meetingLocation",meeting.getLocation());
+                    editor.putString("meetingScheduling_ddl",meeting.getScheduling_ddl());
+                    editor.putString("meetingId","Id: "+meeting.getMid());
+                    editor.commit();
+
                 }
             }
         });

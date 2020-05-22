@@ -7,18 +7,20 @@ public class Meeting {
     private String holdTime;
     private Integer timeLength;
     private String location;
+    private String scheduling_ddl;
     private Integer gpsGid;
 
-    public Meeting(){
+    public Meeting() {
     }
 
-    public Meeting(Integer mid, String name, String notes, String holdTime, Integer timeLength, String location, Integer gpsGid) {
+    public Meeting(Integer mid, String name, String notes, String holdTime, Integer timeLength, String location, String scheduling_ddl, Integer gpsGid) {
         this.mid = mid;
         this.name = name;
         this.notes = notes;
         this.holdTime = holdTime;
         this.timeLength = timeLength;
         this.location = location;
+        this.scheduling_ddl = scheduling_ddl;
         this.gpsGid = gpsGid;
     }
 
@@ -70,6 +72,14 @@ public class Meeting {
         this.location = location;
     }
 
+    public String getScheduling_ddl() {
+        return scheduling_ddl;
+    }
+
+    public void setScheduling_ddl(String scheduling_ddl) {
+        this.scheduling_ddl = scheduling_ddl;
+    }
+
     public Integer getGpsGid() {
         return gpsGid;
     }
@@ -87,6 +97,7 @@ public class Meeting {
                 ", holdTime='" + holdTime + '\'' +
                 ", timeLength=" + timeLength +
                 ", location='" + location + '\'' +
+                ", scheduling_ddl='" + scheduling_ddl + '\'' +
                 ", gpsGid=" + gpsGid +
                 '}';
     }

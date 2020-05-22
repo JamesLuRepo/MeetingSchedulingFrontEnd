@@ -34,6 +34,7 @@ public class LogInPage extends AppCompatActivity {
 
     EditText emailEditText;
     EditText passwordEditText;
+    String name;
 
     String logInResult;//"successful" if successful; "fail" if fail
 
@@ -80,10 +81,15 @@ public class LogInPage extends AppCompatActivity {
 
                 progressDialog.dismiss();
                 //dismiss the dialog and Toast or switch activity
-                if ("successful".equals(logInResult)) {
-                    SharedPreferences.Editor editor = getSharedPreferences("emailDataBase",MODE_PRIVATE).edit();
+                if ("successful".equals(logInResult.split("&")[0])) {
+                    //save email into the local database
+                    SharedPreferences.Editor editor = getSharedPreferences("localDataBase",MODE_PRIVATE).edit();
                     editor.putString("email",emailEditText.getText().toString().trim());
+
+                    //save name into local database
+                    editor.putString("userName",logInResult.split("&")[1]);
                     editor.commit();
+
                     finish();
                 } else {
                     Toast.makeText(LogInPage.this, "Your email or password does not exist", Toast.LENGTH_SHORT).show();
