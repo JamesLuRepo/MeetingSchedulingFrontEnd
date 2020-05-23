@@ -8,6 +8,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -17,6 +20,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.comp2100_6442_androidproject.R;
@@ -69,17 +73,44 @@ public class HomePage extends AppCompatActivity {
                     updateSchedulePage();
                     break;
                 case R.id.navigation_settings:
-
+                    updateSettingPage();
                     break;
             }
         }
     };
 
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_home, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_group:
+                Intent intent = new Intent(this,GroupAdd.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = new Intent(this, LogInPage.class);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+         //   actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+        }
 
         groupNames = new ArrayList<>();
         groupDescriptions = new ArrayList<>();
@@ -99,6 +130,7 @@ public class HomePage extends AppCompatActivity {
         navigationSet.setOnClickListener(l);
 
         updateHomePage();
+
     }
 
     @Override
@@ -200,6 +232,13 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
+    private void updateSettingPage() {
+        Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);
+
+    }
+
+
 
 
 
@@ -276,6 +315,41 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
+//    private void getSettings() {
+//        SharedPreferences sp = getSharedPreferences("localDataBase", Context.MODE_PRIVATE);
+//        email = sp.getString("email", "");
+//        String parameter = "?email=" + this.email;
+//        Call task = ConnectionTemplate.getConnection("/userSchedule", parameter);
+//        task.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//                Log.d(TAG, "onFailure: " + e.toString());
+//            }
+//
+//            @Override
+//            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//                int code = response.code();
+//                Log.d(TAG, "code: " + code);
+//                if (code == HttpURLConnection.HTTP_OK) {
+//                    ResponseBody body = response.body();
+//
+//                    String bodyString = body.string();
+//                    Log.d(TAG, "body: " + bodyString);
+//                    scheduleList = gson.fromJson(bodyString, new TypeToken<List<ScheduleShow>>() {
+//                    }.getType());
+//                    Log.d(TAG, "gpsList: " + scheduleList);
+//                    scheduleNames.clear();
+//                    scheduleDescriptions.clear();
+//                    for (ScheduleShow scheduleShow : scheduleList) {
+//                        scheduleNames.add(scheduleShow.getName());
+//                        scheduleDescriptions.add(scheduleShow.getInfo());
+//                        scheduleMid.add(scheduleShow.getMid()+"");
+//
+//                    }
+//                }
+//            }
+//        });
+//    }
     private void getMeetingInformation(String mid){
         String parameter = "?mid=" + mid;
         Call task = ConnectionTemplate.getConnection("/getMeetingInformation", parameter);
