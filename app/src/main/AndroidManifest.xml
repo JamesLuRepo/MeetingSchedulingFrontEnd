@@ -13,8 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.GroupAdd"></activity>
-        <activity android:name=".activities.PreferenceAdd" />
+        <activity
+            android:name=".activities.GroupAdd"
+            android:label="Add new groups"/>
+        <activity
+            android:name=".activities.PreferenceAdd"
+            android:label="Add your preferences"/>
         <activity
             android:name=".activities.Settings"
             android:label="Settings" />
