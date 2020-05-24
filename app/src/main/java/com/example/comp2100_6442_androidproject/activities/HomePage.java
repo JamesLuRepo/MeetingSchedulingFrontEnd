@@ -95,7 +95,11 @@ public class HomePage extends AppCompatActivity {
                 Intent intent = new Intent(this,GroupAdd.class);
                 startActivity(intent);
                 return true;
-            default:
+            case R.id.add_meeting:
+                Intent intent1 = new Intent(this,MeetingAdd.class);
+                startActivity(intent1);
+                return true;
+                default:
                 return super.onOptionsItemSelected(item);
         }
     }

@@ -5,11 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.comp2100_6442_androidproject.R;
 
@@ -28,7 +24,7 @@ public class Settings extends AppCompatActivity {
      //   actionBar.setDisplayHomeAsUpEnabled(true);
     }
     public void SetPre(View v) {
-        Intent intent = new Intent(this, PreferenceDetail.class);
+        Intent intent = new Intent(this, TimeSlotInfo.class);
         startActivity(intent);
     }
     public void LogOut(View v) {

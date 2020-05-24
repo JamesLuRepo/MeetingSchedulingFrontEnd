@@ -18,16 +18,16 @@ import com.example.comp2100_6442_androidproject.R;
 
 import java.util.Calendar;
 
-public class PreferenceAdd extends AppCompatActivity {
+public class TimeSlotAdd extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preference_add);
+        setContentView(R.layout.activity_time_slot_add);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-         //   actionBar.setHomeButtonEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
         }
         Button button = (Button)findViewById(R.id.dateSet);
         button.setOnClickListener(new View.OnClickListener(){
@@ -35,11 +35,11 @@ public class PreferenceAdd extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Calendar calendar = Calendar.getInstance();
-                new DatePickerDialog(PreferenceAdd.this,
+                new DatePickerDialog(TimeSlotAdd.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                Toast.makeText(PreferenceAdd.this,"You chose : "+year+"."+month+"."+dayOfMonth,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(TimeSlotAdd.this,"You chose : "+year+"."+month+"."+dayOfMonth,Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -55,11 +55,11 @@ public class PreferenceAdd extends AppCompatActivity {
             @Override
             public void onClick(View v1){
                 Calendar c = Calendar.getInstance();
-                new TimePickerDialog(PreferenceAdd.this,
+                new TimePickerDialog(TimeSlotAdd.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                Toast.makeText(PreferenceAdd.this,"You chose : "+hourOfDay+":"+minute,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(TimeSlotAdd.this,"You chose : "+hourOfDay+":"+minute,Toast.LENGTH_SHORT).show();
                             }
                         }
                         , c.get(Calendar.HOUR_OF_DAY)
@@ -69,6 +69,12 @@ public class PreferenceAdd extends AppCompatActivity {
             }
         });
 
+
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
     }
 

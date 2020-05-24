@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activities.Settings">
     <item
+        android:id="@+id/add_meeting"
+        android:title="Add meeting" />
+    <item
         android:id="@+id/add_group"
         android:menuCategory="container"
-        android:title="create new group" />
+        android:title="Add group" />
 </menu>

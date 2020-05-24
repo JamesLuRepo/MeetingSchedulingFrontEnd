@@ -8,16 +8,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.comp2100_6442_androidproject.R;
 
-public class PreferenceDetail extends AppCompatActivity {
+public class TimeSlotInfo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preference_detail);
+        setContentView(R.layout.activity_time_slot_detail);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -35,7 +34,7 @@ public class PreferenceDetail extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                Intent intent = new Intent(this,PreferenceAdd.class);
+                Intent intent = new Intent(this, TimeSlotAdd.class);
                 startActivity(intent);
                 return true;
             default:

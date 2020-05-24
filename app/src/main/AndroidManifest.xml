@@ -14,19 +14,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.GroupAdd"
-            android:label="Add new groups"/>
+            android:name=".activities.GroupInfo"
+            android:label="Group information"
+            ></activity>
+        <activity android:name=".activities.MeetingInfo" />
         <activity
-            android:name=".activities.PreferenceAdd"
-            android:label="Add your preferences"/>
+            android:name=".activities.MeetingAdd"
+            android:label="Add new meetings"
+            />
+        <activity
+            android:name=".activities.GroupAdd"
+            android:label="Add new groups" />
+        <activity
+            android:name=".activities.TimeSlotAdd"
+            android:label="Add your time slot" />
         <activity
             android:name=".activities.Settings"
             android:label="Settings" />
         <activity android:name=".activities.LogInPage" />
         <activity android:name=".activities.SignUpPage" />
         <activity
-            android:name=".activities.PreferenceDetail"
-            android:label="Preference"
+            android:name=".activities.TimeSlotInfo"
+            android:label="Your time slots"
             android:parentActivityName=".activities.Settings" />
         <activity android:name=".activities.HomePage">
             <intent-filter>
