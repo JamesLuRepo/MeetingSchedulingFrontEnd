@@ -7,205 +7,205 @@
     tools:context=".activities.MeetingAdd">
 
 
-    <EditText
-        android:id="@+id/nameEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="67dp"
-        android:layout_marginRight="67dp"
-        android:ems="10"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/noteEdit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mNameText"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <EditText-->
+<!--        android:id="@+id/nameEdit"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="84dp"-->
+<!--        android:layout_marginEnd="67dp"-->
+<!--        android:layout_marginRight="67dp"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="text"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/noteEdit"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/mNameText"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <EditText
-        android:id="@+id/noteEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="131dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:layout_marginBottom="40dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/mTimeEdit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mNoteText"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+<!--    <EditText-->
+<!--        android:id="@+id/noteEdit"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="3dp"-->
+<!--        android:layout_marginLeft="3dp"-->
+<!--        android:layout_marginTop="131dp"-->
+<!--        android:layout_marginEnd="64dp"-->
+<!--        android:layout_marginRight="64dp"-->
+<!--        android:layout_marginBottom="40dp"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="textMultiLine"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/mTimeEdit"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/mNoteText"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
 
-    <EditText
-        android:id="@+id/mTimeEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="201dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:inputType="datetime"
-        app:layout_constraintBottom_toTopOf="@+id/mLenEdit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mTimeText"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <EditText-->
+<!--        android:id="@+id/mTimeEdit"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginLeft="8dp"-->
+<!--        android:layout_marginTop="201dp"-->
+<!--        android:layout_marginEnd="64dp"-->
+<!--        android:layout_marginRight="64dp"-->
+<!--        android:layout_marginBottom="24dp"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="datetime"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/mLenEdit"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/mTimeText"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <EditText
-        android:id="@+id/mLenEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="273dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/locaEdit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mLenText"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <EditText-->
+<!--        android:id="@+id/mLenEdit"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="3dp"-->
+<!--        android:layout_marginLeft="3dp"-->
+<!--        android:layout_marginTop="273dp"-->
+<!--        android:layout_marginEnd="64dp"-->
+<!--        android:layout_marginRight="64dp"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        android:ems="10"-->
+<!--        android:gravity="start|top"-->
+<!--        android:inputType="time"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/locaEdit"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/mLenText"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <EditText
-        android:id="@+id/locaEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="342dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:layout_marginBottom="32dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/ddlEdit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mLocText"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <EditText-->
+<!--        android:id="@+id/locaEdit"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="3dp"-->
+<!--        android:layout_marginLeft="3dp"-->
+<!--        android:layout_marginTop="342dp"-->
+<!--        android:layout_marginEnd="64dp"-->
+<!--        android:layout_marginRight="64dp"-->
+<!--        android:layout_marginBottom="32dp"-->
+<!--        android:ems="10"-->
+<!--        android:gravity="start|top"-->
+<!--        android:inputType="text"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/ddlEdit"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/mLocText"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <EditText
-        android:id="@+id/ddlEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="442dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:layout_marginBottom="118dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mddlText"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <EditText-->
+<!--        android:id="@+id/ddlEdit"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="3dp"-->
+<!--        android:layout_marginLeft="3dp"-->
+<!--        android:layout_marginTop="442dp"-->
+<!--        android:layout_marginEnd="64dp"-->
+<!--        android:layout_marginRight="64dp"-->
+<!--        android:layout_marginBottom="118dp"-->
+<!--        android:ems="10"-->
+<!--        android:gravity="start|top"-->
+<!--        android:inputType="time"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/button3"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/mddlText"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <TextView
-        android:id="@+id/mNameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="83dp"
-        android:layout_marginLeft="83dp"
-        android:text="Name"
-        app:layout_constraintBottom_toBottomOf="@+id/nameEdit"
-        app:layout_constraintEnd_toStartOf="@+id/nameEdit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/nameEdit" />
+<!--    <TextView-->
+<!--        android:id="@+id/mNameText"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="83dp"-->
+<!--        android:layout_marginLeft="83dp"-->
+<!--        android:text="Name"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/nameEdit"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/nameEdit"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/nameEdit" />-->
 
-    <TextView
-        android:id="@+id/mNoteText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="83dp"
-        android:layout_marginLeft="83dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginRight="3dp"
-        android:text="Notes"
-        app:layout_constraintBottom_toBottomOf="@+id/noteEdit"
-        app:layout_constraintEnd_toStartOf="@+id/noteEdit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/noteEdit" />
+<!--    <TextView-->
+<!--        android:id="@+id/mNoteText"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="83dp"-->
+<!--        android:layout_marginLeft="83dp"-->
+<!--        android:layout_marginEnd="3dp"-->
+<!--        android:layout_marginRight="3dp"-->
+<!--        android:text="Notes"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/noteEdit"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/noteEdit"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/noteEdit" />-->
 
-    <TextView
-        android:id="@+id/mTimeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="83dp"
-        android:layout_marginLeft="83dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Time"
-        app:layout_constraintBottom_toBottomOf="@+id/mTimeEdit"
-        app:layout_constraintEnd_toStartOf="@+id/mTimeEdit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mTimeEdit" />
+<!--    <TextView-->
+<!--        android:id="@+id/mTimeText"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="83dp"-->
+<!--        android:layout_marginLeft="83dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginRight="8dp"-->
+<!--        android:text="Time"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/mTimeEdit"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/mTimeEdit"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/mTimeEdit" />-->
 
-    <TextView
-        android:id="@+id/mLenText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="83dp"
-        android:layout_marginLeft="83dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginRight="3dp"
-        android:text="Duration"
-        app:layout_constraintBottom_toBottomOf="@+id/mLenEdit"
-        app:layout_constraintEnd_toStartOf="@+id/mLenEdit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mTimeEdit"
-        app:layout_constraintVertical_bias="0.783" />
+<!--    <TextView-->
+<!--        android:id="@+id/mLenText"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="83dp"-->
+<!--        android:layout_marginLeft="83dp"-->
+<!--        android:layout_marginEnd="3dp"-->
+<!--        android:layout_marginRight="3dp"-->
+<!--        android:text="Duration"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/mLenEdit"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/mLenEdit"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/mTimeEdit"-->
+<!--        app:layout_constraintVertical_bias="0.783" />-->
 
-    <TextView
-        android:id="@+id/mLocText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginLeft="88dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginRight="3dp"
-        android:text="Location"
-        app:layout_constraintBottom_toBottomOf="@+id/locaEdit"
-        app:layout_constraintEnd_toStartOf="@+id/locaEdit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mLenEdit"
-        app:layout_constraintVertical_bias="0.782" />
+<!--    <TextView-->
+<!--        android:id="@+id/mLocText"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="88dp"-->
+<!--        android:layout_marginLeft="88dp"-->
+<!--        android:layout_marginEnd="3dp"-->
+<!--        android:layout_marginRight="3dp"-->
+<!--        android:text="Location"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/locaEdit"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/locaEdit"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/mLenEdit"-->
+<!--        app:layout_constraintVertical_bias="0.782" />-->
 
-    <TextView
-        android:id="@+id/mddlText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginLeft="88dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginRight="3dp"
-        android:text="Deadline"
-        app:layout_constraintBottom_toBottomOf="@+id/ddlEdit"
-        app:layout_constraintEnd_toStartOf="@+id/ddlEdit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locaEdit"
-        app:layout_constraintVertical_bias="0.741" />
+<!--    <TextView-->
+<!--        android:id="@+id/mddlText"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="88dp"-->
+<!--        android:layout_marginLeft="88dp"-->
+<!--        android:layout_marginEnd="3dp"-->
+<!--        android:layout_marginRight="3dp"-->
+<!--        android:text="Deadline"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/ddlEdit"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/ddlEdit"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/locaEdit"-->
+<!--        app:layout_constraintVertical_bias="0.741" />-->
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="109dp"
-        android:layout_marginBottom="122dp"
-        android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ddlEdit" />
+<!--    <Button-->
+<!--        android:id="@+id/button3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="109dp"-->
+<!--        android:layout_marginBottom="122dp"-->
+<!--        android:text="Save"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.498"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/ddlEdit" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,11 +41,11 @@
         android:onClick="BackHome"
         android:text="Back Home"
         app:layout_constraintEnd_toStartOf="@+id/BackImage"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/noteEdit" />
 
     <!--verification edit text-->
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/locaEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -67,7 +67,7 @@
         android:onClick="BackHome"
         android:text="Back Home"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/noteEdit"
         app:srcCompat="@android:drawable/ic_menu_revert" />
 
     <Button
@@ -77,8 +77,8 @@
         android:layout_marginTop="50dp"
         android:onClick="Sign_up_successful_button"
         android:text="Sign Up"
-        app:layout_constraintStart_toStartOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintStart_toStartOf="@+id/noteEdit"
+        app:layout_constraintTop_toBottomOf="@+id/noteEdit" />
 
     <EditText
         android:id="@+id/AccountName"
@@ -89,10 +89,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintTop_toBottomOf="@+id/locaEdit" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/noteEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -116,16 +116,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Verification code:"
-        app:layout_constraintBottom_toTopOf="@+id/editText4"
-        app:layout_constraintStart_toStartOf="@+id/editText4" />
+        app:layout_constraintBottom_toTopOf="@+id/locaEdit"
+        app:layout_constraintStart_toStartOf="@+id/locaEdit" />
 
     <TextView
         android:id="@+id/SetPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Password:"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
-        app:layout_constraintStart_toStartOf="@+id/editText2" />
+        app:layout_constraintBottom_toTopOf="@+id/noteEdit"
+        app:layout_constraintStart_toStartOf="@+id/noteEdit" />
 
     <TextView
         android:id="@+id/EmailAddress"

@@ -2,7 +2,6 @@ package com.example.comp2100_6442_androidproject.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,19 +9,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.comp2100_6442_androidproject.R;
-import com.example.comp2100_6442_androidproject.domain.User;
 import com.example.comp2100_6442_androidproject.utils.ConnectionTemplate;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -45,9 +40,9 @@ public class SignUpPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_page);
         emailAddressEditText = findViewById(R.id.signUpEmailAddress);
-        verificationCodeEditText = findViewById(R.id.editText4);
+        verificationCodeEditText = findViewById(R.id.locaEdit);
         nameEditText = findViewById(R.id.AccountName);
-        passwordEditText = findViewById(R.id.editText2);
+        passwordEditText = findViewById(R.id.noteEdit);
     }
 
     //back to LogInPage

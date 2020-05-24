@@ -11,6 +11,6 @@ public class MeetingInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meeting_details);
+        setContentView(R.layout.activity_meeting_info);
     }
 }

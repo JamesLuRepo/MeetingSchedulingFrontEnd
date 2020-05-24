@@ -7,21 +7,21 @@
     tools:context=".activities.GroupAdd">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/mTimeEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="138dp"
         android:layout_marginBottom="17dp"
         android:ems="10"
         android:inputType="textPostalAddress"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
+        app:layout_constraintBottom_toTopOf="@+id/mLenEdit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/mLenEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -32,18 +32,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/mTimeEdit" />
 
     <TextView
-    android:id="@+id/textView3"
+    android:id="@+id/mNoteText"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="87dp"
     android:layout_marginLeft="87dp"
     android:layout_marginTop="105dp"
     android:text="Group name"
-    app:layout_constraintBottom_toBottomOf="@+id/editText"
-    app:layout_constraintEnd_toStartOf="@+id/editText"
+    app:layout_constraintBottom_toBottomOf="@+id/mTimeEdit"
+    app:layout_constraintEnd_toStartOf="@+id/mTimeEdit"
     app:layout_constraintHorizontal_bias="1.0"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
@@ -51,15 +51,15 @@
 
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/mLocText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Description"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/editText3"
+        app:layout_constraintEnd_toStartOf="@+id/mLenEdit"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText3"
+        app:layout_constraintTop_toTopOf="@+id/mLenEdit"
         app:layout_constraintVertical_bias="0.021" />
 
     <Button
@@ -72,6 +72,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintTop_toBottomOf="@+id/mLenEdit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
