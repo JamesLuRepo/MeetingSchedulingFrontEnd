@@ -1,9 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activities.MeetingInfo">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Meeting Id:"
+        android:textSize="36sp"
+        android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/meetingIdTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="27sp"
+        android:textColor="#2196F3"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Meeting name:"
+        android:textSize="36sp"
+        android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/meetingNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="27sp"
+        android:textColor="#2196F3"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Notes:"
+        android:textSize="36sp"
+        android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/meetingNotesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#2196F3"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hold Time:"
+        android:textSize="36sp"
+        android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/meetingHoldTimeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#2196F3"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Duration:"
+        android:textSize="36sp"
+        android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/meetingDurationTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#2196F3"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Location:"
+        android:textSize="36sp"
+        android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/meetingLocationTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#2196F3"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Deadline:"
+        android:textSize="36sp"
+        android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/meetingDeadlineTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#2196F3"/>
+    <Button
+        android:id="@+id/modifyMeetingInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MODIFY MEETING INFORMATION"
+        android:textSize="20sp"
+        android:onClick="modifyMeeting"/>
+</LinearLayout>

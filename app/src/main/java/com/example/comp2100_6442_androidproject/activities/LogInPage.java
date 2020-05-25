@@ -45,6 +45,8 @@ public class LogInPage extends AppCompatActivity {
         this.emailEditText = findViewById(R.id.LogInEmail);
         this.passwordEditText = findViewById(R.id.LogInPassword);
 
+        logInResult="";
+
     }
 
     @Override
@@ -98,7 +100,7 @@ public class LogInPage extends AppCompatActivity {
                 }
             }
             //waiting seconds
-        }, 3500);
+        }, 4000);
     }
 
     // execute this part of code when click on Sign up button in main page

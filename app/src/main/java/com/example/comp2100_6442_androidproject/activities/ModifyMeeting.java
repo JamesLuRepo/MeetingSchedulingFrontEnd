@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,13 +21,11 @@ import android.widget.Toast;
 
 import com.example.comp2100_6442_androidproject.R;
 import com.example.comp2100_6442_androidproject.domain.Meeting;
-import com.example.comp2100_6442_androidproject.utils.ConnectionTemplate;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -41,8 +40,10 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class MeetingAdd extends AppCompatActivity {
-    private String TAG = "MeetingAdd: ";
+
+public class ModifyMeeting extends AppCompatActivity {
+
+    private String TAG = "ModifyMeeting: ";
     EditText name;
     EditText notes;
     TextView holdTime;
@@ -51,6 +52,7 @@ public class MeetingAdd extends AppCompatActivity {
     TextView deadline;
     Calendar calendar;
 
+    String mIdString;
     String nameString;
     String notesString;
     String holdTimeString;
@@ -65,11 +67,13 @@ public class MeetingAdd extends AppCompatActivity {
 
     boolean isSaveSuccessful = false;
 
+    Meeting meeting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meeting_add);
+        setContentView(R.layout.activity_modify_meeting);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -93,27 +97,34 @@ public class MeetingAdd extends AppCompatActivity {
         deadlineString = "";
         ausDeadlineString = "";
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        gpsId = bundle.getString("gpsId", "");
+        SharedPreferences sp = getSharedPreferences("localDataBase", Context.MODE_PRIVATE);
+        mIdString= sp.getString("meetingMId","");
+        nameString = sp.getString("meetingName", "");
+        notesString = sp.getString("meetingNotes", "");
+        holdTimeString = sp.getString("meetingHoldTime", "");
+        durationString = sp.getString("meetingTimeLength", "");
+        locationString = sp.getString("meetingLocation", "");
+        deadlineString = sp.getString("meetingScheduling_ddl", "");
+        gpsId = sp.getString("meetingGId", "");
+
+        name.setText(nameString);
+        notes.setText(notesString);
+        holdTime.setText(holdTimeString);
+        duration.setText(durationString);
+        location.setText(locationString);
+        deadline.setText(deadlineString);
 
         gson = new Gson();
-
-
     }
-
-
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
     }
-
-
     public void setHoldTime(View view) {
 
 
-        new TimePickerDialog(MeetingAdd.this, new TimePickerDialog.OnTimeSetListener() {
+        new TimePickerDialog(ModifyMeeting.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 holdTimeString = holdTimeString + hourOfDay + ":" + minute + ":" + "00";
@@ -121,7 +132,7 @@ public class MeetingAdd extends AppCompatActivity {
                 holdTime.setText(ausHoldTimeString);
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
-        new DatePickerDialog(MeetingAdd.this, new DatePickerDialog.OnDateSetListener() {
+        new DatePickerDialog(ModifyMeeting.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 holdTimeString = year + "-" + monthOfYear + "-" + dayOfMonth + " ";
@@ -133,7 +144,7 @@ public class MeetingAdd extends AppCompatActivity {
     public void setDeadlineTime(View view) {
 
 
-        new TimePickerDialog(MeetingAdd.this, new TimePickerDialog.OnTimeSetListener() {
+        new TimePickerDialog(ModifyMeeting.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 deadlineString = deadlineString + hourOfDay + ":" + minute + ":" + "00";
@@ -142,14 +153,13 @@ public class MeetingAdd extends AppCompatActivity {
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
 
-        new DatePickerDialog(MeetingAdd.this, new DatePickerDialog.OnDateSetListener() {
+        new DatePickerDialog(ModifyMeeting.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 deadlineString = year + "-" + monthOfYear + "-" + dayOfMonth + " ";
                 ausDeadlineString = dayOfMonth + "." + monthOfYear + "." + year + " ";
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-
     }
 
     public void saveMeeting(View view) {
@@ -162,7 +172,7 @@ public class MeetingAdd extends AppCompatActivity {
             Toast.makeText(this, "please fill in the blank", Toast.LENGTH_SHORT).show();
             return;
         }
-        Meeting meeting = new Meeting(null,
+         meeting = new Meeting(Integer.parseInt(mIdString),
                 nameString,
                 notesString,
                 holdTimeString,
@@ -186,18 +196,35 @@ public class MeetingAdd extends AppCompatActivity {
                 progressDialog.dismiss();
                 //dismiss the dialog and Toast or switch activity
                 if (isSaveSuccessful) {
+                    SharedPreferences.Editor editor = getSharedPreferences("localDataBase",MODE_PRIVATE).edit();
+                    //When click one schedule, the the meeting information will be saved into the local database
+                    editor.putString("meetingName",meeting.getName());
+                    editor.putString("meetingNotes",meeting.getNotes());
+                    editor.putString("meetingHoldTime",meeting.getHoldTime());
+                    editor.putString("meetingTimeLength",meeting.getTimeLength()+"");
+                    editor.putString("meetingLocation",meeting.getLocation());
+                    editor.putString("meetingScheduling_ddl",meeting.getScheduling_ddl());
+                    editor.putString("meetingMId",meeting.getMid()+"");
+                    editor.putString("meetingGId",meeting.getGpsGid()+"");
+                    editor.commit();
+
+
+
+
+
+
+
                     finish();
                 } else {
-                    Toast.makeText(MeetingAdd.this, "failed please click again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ModifyMeeting.this, "failed please click again", Toast.LENGTH_SHORT).show();
                 }
             }
             //waiting seconds
-        }, 4000);
+        }, 5000);
     }
-
     public void postMeetingInfo(String meetingJson) {
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(60000, TimeUnit.MILLISECONDS)
+                .connectTimeout(20000, TimeUnit.MILLISECONDS)
                 .build();
 
 
@@ -207,7 +234,7 @@ public class MeetingAdd extends AppCompatActivity {
 
         Request request = new Request.Builder()
                 .post(requestBody)
-                .url("http://49.234.105.82:8080/ms" + "/meetingAdd")
+                .url("http://49.234.105.82:8080/ms" + "/meetingModify")
                 .build();
 
         Call task = client.newCall(request);
@@ -226,17 +253,11 @@ public class MeetingAdd extends AppCompatActivity {
                     ResponseBody body = response.body();
                     if (body != null) {
                         String s = body.string();
-                            isSaveSuccessful = true;
+                        isSaveSuccessful = true;
                         Log.d(TAG, "result: " +s);
-
                     }
-
                 }
-
             }
         });
-
     }
-
-
 }

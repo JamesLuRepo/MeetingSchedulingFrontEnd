@@ -1,22 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".activities.TimeSlotAdd">
 
-    <Button
-        android:id="@+id/dateSet"
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:id="@+id/setPart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Set Date" />
+        app:layout_constraintBottom_toTopOf="@id/saveTimePreference"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/setStartTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SET START TIME"
+            app:layout_constraintBottom_toTopOf="@id/showStartTime"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="setStartTime"/>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/showStartTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/setEndTime"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/setStartTime" />
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/setEndTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SET END TIME"
+            app:layout_constraintBottom_toTopOf="@id/showEndTime"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/showStartTime"
+            android:onClick="setEndTime"/>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/showEndTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/setEndTime"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <Button
-        android:id="@+id/timeSet"
+        android:id="@+id/saveTimePreference"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Set time" />
-</LinearLayout>
+        android:text="SAVE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/setPart"
+        android:onClick="savePreference"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,6 +61,8 @@ public class HomePage extends AppCompatActivity {
 
     Gson gson = new Gson();
     private boolean isSecondTime = false;
+    private boolean isSaveSuccessfully= false;
+
 
     View.OnClickListener l = new View.OnClickListener() {
         @Override
@@ -153,6 +155,7 @@ public class HomePage extends AppCompatActivity {
             for (int i = 0; i < groupNames.size(); i++) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("icon", R.mipmap.groups_img);
+                Log.d(TAG, "updateHomePage: "+gpsId.get(i));
                 map.put("name", "G"+gpsId.get(i)+":"+groupNames.get(i));
                 map.put("description", groupDescriptions.get(i));
                 listItems.add(map);
@@ -171,22 +174,11 @@ public class HomePage extends AppCompatActivity {
                     //When click one group, the group name and the group description will be saved into the lacal database
                     editor.putString("gpsName",map.get("name").toString().split(":")[1]);
                     editor.putString("gpsDescription",map.get("description").toString());
-                    editor.putString("gpsId",map.get("name").toString().split(":")[0]);
+                    editor.putString("gpsId",map.get("name").toString().split(":")[0].substring(1));
                     editor.commit();
 
-                    final ProgressDialog progressDialog = new ProgressDialog(HomePage.this);
-                    progressDialog.setMessage("Loading...");
-                    progressDialog.show();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {// delay 3.5 millis and then run this
-                            progressDialog.dismiss();
-                            //TODO: PUT THE CODE HERE TO OPEN THE GROUP INFORMATION ACTIVITY FROM THE GROUP LIST
-
-
-                        }
-                        //waiting seconds
-                    }, 3500);
+                    Intent intent = new Intent(HomePage.this, GroupInfo.class);
+                    startActivity(intent);
                 }
             });
         } else {
@@ -203,7 +195,7 @@ public class HomePage extends AppCompatActivity {
             Map<String, Object> map = new HashMap<>();
             map.put("icon", R.mipmap.meetings_img);
             map.put("name", "M"+scheduleMid.get(i)+":"+scheduleNames.get(i));
-            map.put("description", scheduleDescriptions.get(i)+"&"+scheduleMid.get(i));
+            map.put("description", scheduleDescriptions.get(i));
             listItems.add(map);
         }
         SimpleAdapter adapter = new SimpleAdapter(this, listItems,
@@ -215,8 +207,8 @@ public class HomePage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
                 Toast.makeText(HomePage.this, map.get("name").toString().split(":")[1], Toast.LENGTH_SHORT).show();
-
-                getMeetingInformation(map.get("name").toString().split(":")[0]);
+                isSaveSuccessfully=false;
+                getMeetingInformation(map.get("name").toString().split(":")[0].substring(1));
                 // the progressDialog to wait for the respond
                 final ProgressDialog progressDialog = new ProgressDialog(HomePage.this);
                 progressDialog.setMessage("Loading...");
@@ -226,11 +218,18 @@ public class HomePage extends AppCompatActivity {
                     public void run() {// delay 3.5 millis and then run this
                         progressDialog.dismiss();
                         //TODO: PUT THE CODE HERE TO OPEN THE MEETING INFORMATION ACTIVITY FROM THE SCHEDULE LIST
+                        if (isSaveSuccessfully){
+                            Intent intent = new Intent(HomePage.this, MeetingInfo.class);
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(HomePage.this, "click again to get network response", Toast.LENGTH_SHORT).show();
+                        }
+
 
 
                     }
                     //waiting seconds
-                }, 3500);
+                }, 6000);
 
 
             }
@@ -274,6 +273,7 @@ public class HomePage extends AppCompatActivity {
                     Log.d(TAG, "gpsList: " + gpsList);
                     groupNames.clear();
                     groupDescriptions.clear();
+                    gpsId.clear();
                     for (Gps gps : gpsList) {
                         groupNames.add(gps.getName());
                         groupDescriptions.add(gps.getDescription());
@@ -309,6 +309,7 @@ public class HomePage extends AppCompatActivity {
                     Log.d(TAG, "gpsList: " + scheduleList);
                     scheduleNames.clear();
                     scheduleDescriptions.clear();
+                    scheduleMid.clear();
                     for (ScheduleShow scheduleShow : scheduleList) {
                         scheduleNames.add(scheduleShow.getName());
                         scheduleDescriptions.add(scheduleShow.getInfo());
@@ -354,7 +355,9 @@ public class HomePage extends AppCompatActivity {
 //            }
 //        });
 //    }
+
     private void getMeetingInformation(String mid){
+        Log.d(TAG, "getMeetingInformation: mid:"+mid);
         String parameter = "?mid=" + mid;
         Call task = ConnectionTemplate.getConnection("/getMeetingInformation", parameter);
         task.enqueue(new Callback() {
@@ -381,11 +384,13 @@ public class HomePage extends AppCompatActivity {
                     editor.putString("meetingName",meeting.getName());
                     editor.putString("meetingNotes",meeting.getNotes());
                     editor.putString("meetingHoldTime",meeting.getHoldTime());
-                    editor.putString("meetingTimeLength",meeting.getTimeLength()+" minutes");
+                    editor.putString("meetingTimeLength",meeting.getTimeLength()+"");
                     editor.putString("meetingLocation",meeting.getLocation());
                     editor.putString("meetingScheduling_ddl",meeting.getScheduling_ddl());
-                    editor.putString("meetingId","Id: "+meeting.getMid());
+                    editor.putString("meetingMId",meeting.getMid()+"");
+                    editor.putString("meetingGId",meeting.getGpsGid()+"");
                     editor.commit();
+                    isSaveSuccessfully=true;
 
                 }
             }

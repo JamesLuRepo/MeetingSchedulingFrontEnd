@@ -13,15 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.ModifyMeeting"></activity>
+        <activity android:name=".activities.UserList" />
         <activity
             android:name=".activities.GroupInfo"
-            android:label="Group information"
-            ></activity>
+            android:label="Group information" />
         <activity android:name=".activities.MeetingInfo" />
         <activity
             android:name=".activities.MeetingAdd"
-            android:label="Add new meetings"
-            />
+            android:label="Add new meetings" />
         <activity
             android:name=".activities.GroupAdd"
             android:label="Add new groups" />
