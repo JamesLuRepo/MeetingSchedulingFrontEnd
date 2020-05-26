@@ -17,7 +17,7 @@ public class Settings extends AppCompatActivity {
     String userNameString;
     TextView userName;
 
-
+    //initialize the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,28 +35,20 @@ public class Settings extends AppCompatActivity {
 
 
     }
-
+    // when click View Time Slots
     public void SetPre(View v) {
         Intent intent = new Intent(this, TimeSlotInfo.class);
         startActivity(intent);
     }
-
+    // when click the Log Out
     public void LogOut(View v) {
-        Intent intent = new Intent(this, LogInPage.class);
+        Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
     }
-
+    //upper left arrow
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
-
 }

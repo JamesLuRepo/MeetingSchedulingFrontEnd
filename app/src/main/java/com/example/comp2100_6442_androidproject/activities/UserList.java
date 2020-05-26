@@ -3,7 +3,9 @@ package com.example.comp2100_6442_androidproject.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -26,6 +28,7 @@ import java.util.Map;
 
 public class UserList extends AppCompatActivity {
 
+    //initialize the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,17 +61,22 @@ public class UserList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
-                Toast.makeText(UserList.this, map.get("name").toString(), Toast.LENGTH_SHORT).show();
                 // the progressDialog to wait for the respond
-                Intent intent = getIntent();
-                Bundle bundle = new Bundle();
-                bundle.putString("selectedEmail", map.get("email").toString());
-                intent.putExtras(bundle);
-                setResult(932,intent);
-                finish();
+                String selectedEmail = map.get("email").toString();
+                SharedPreferences sharedPreferences = getSharedPreferences("localDataBase", Context.MODE_PRIVATE);
+                String userEmail = sharedPreferences.getString("email", "");
+
+                if (selectedEmail.equals(userEmail)) {
+                    Toast.makeText(UserList.this, "Cannot select yourself!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = getIntent();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("selectedEmail", selectedEmail);
+                    intent.putExtras(bundle);
+                    setResult(932, intent);
+                    finish();
+                }
             }
         });
-
-
     }
 }

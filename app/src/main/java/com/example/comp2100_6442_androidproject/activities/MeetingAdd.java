@@ -27,7 +27,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -65,7 +68,7 @@ public class MeetingAdd extends AppCompatActivity {
 
     boolean isSaveSuccessful = false;
 
-
+    //initialize the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,17 +105,17 @@ public class MeetingAdd extends AppCompatActivity {
 
     }
 
-
+    //upper left arraw
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
     }
 
-
+    //setHold time
     public void setHoldTime(View view) {
 
-
+        holdTimeString="";
         new TimePickerDialog(MeetingAdd.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -124,15 +127,16 @@ public class MeetingAdd extends AppCompatActivity {
         new DatePickerDialog(MeetingAdd.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                monthOfYear++;
                 holdTimeString = year + "-" + monthOfYear + "-" + dayOfMonth + " ";
                 ausHoldTimeString = dayOfMonth + "." + monthOfYear + "." + year + " ";
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
-
+    //set deadline time
     public void setDeadlineTime(View view) {
 
-
+        deadlineString="";
         new TimePickerDialog(MeetingAdd.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -145,13 +149,14 @@ public class MeetingAdd extends AppCompatActivity {
         new DatePickerDialog(MeetingAdd.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                monthOfYear++;
                 deadlineString = year + "-" + monthOfYear + "-" + dayOfMonth + " ";
                 ausDeadlineString = dayOfMonth + "." + monthOfYear + "." + year + " ";
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
 
     }
-
+    //when click the save button
     public void saveMeeting(View view) {
         nameString = name.getText().toString().trim();
         notesString = notes.getText().toString().trim();
@@ -159,9 +164,17 @@ public class MeetingAdd extends AppCompatActivity {
         locationString = location.getText().toString().trim();
 
         if (nameString.isEmpty() || notesString.isEmpty() || durationString.isEmpty() || locationString.isEmpty()) {
-            Toast.makeText(this, "please fill in the blank", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please fill in the blank!", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (holdTimeString.isEmpty()||deadlineString.isEmpty()){
+            Toast.makeText(this, "Please choose time!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+
+
         Meeting meeting = new Meeting(null,
                 nameString,
                 notesString,
@@ -194,7 +207,7 @@ public class MeetingAdd extends AppCompatActivity {
             //waiting seconds
         }, 4000);
     }
-
+    // network connection
     public void postMeetingInfo(String meetingJson) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(60000, TimeUnit.MILLISECONDS)

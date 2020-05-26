@@ -5,14 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.GroupAdd">
+    <TextView
+        android:id="@+id/searchNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28dp"
+        android:textColor="#000000"
+        android:text="Please Search Users:"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/searchView"/>
 
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
+
         android:queryHint="search users by email"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/searchNotification"/>
 
     <EditText
         android:id="@+id/mTimeEdit"
@@ -84,11 +95,24 @@
         app:layout_constraintTop_toBottomOf="@+id/mLenEdit" />
 
     <TextView
+        android:id="@+id/userChooseNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/button3"
+        android:text="Users chosen:"
+        android:textSize="28dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textColor="#000000"/>
+    <TextView
         android:id="@+id/selectedUsersTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button3" />
+        android:textSize="20dp"
+        android:textColor="#2196F3"
+        app:layout_constraintTop_toBottomOf="@id/userChooseNotification"
+
+/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

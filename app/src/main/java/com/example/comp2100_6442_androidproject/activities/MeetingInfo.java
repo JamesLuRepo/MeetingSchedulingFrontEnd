@@ -40,7 +40,7 @@ public class MeetingInfo extends AppCompatActivity {
     String deadlineString;
     String gIdString;
 
-
+    //initialize the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +60,7 @@ public class MeetingInfo extends AppCompatActivity {
 
         loadResources();
     }
+    //used to load resources
     private void loadResources(){
 
 
@@ -84,19 +85,21 @@ public class MeetingInfo extends AppCompatActivity {
         deadline.setText(deadlineString);
     }
 
+    //when come back to this activity
     @Override
     protected void onResume() {
         super.onResume();
         loadResources();
     }
 
+    //upper left arrow
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
     }
 
-
+    //jump to modify meeting
     public void modifyMeeting(View view) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

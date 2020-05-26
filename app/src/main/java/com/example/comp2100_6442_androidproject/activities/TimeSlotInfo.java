@@ -45,7 +45,7 @@ public class TimeSlotInfo extends AppCompatActivity {
     List<Preference> preferences;
     Gson gson;
 
-
+    //initialize the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +73,7 @@ public class TimeSlotInfo extends AppCompatActivity {
             //waiting seconds
         }, 5000);
     }
+    //update the List view
     private void updateListView() {
         ListView listView = (ListView) findViewById(R.id.Listview2);
         List<Map<String, Object>> listItems = new ArrayList<>();
@@ -96,7 +97,7 @@ public class TimeSlotInfo extends AppCompatActivity {
         });
     }
 
-
+    // network connection
     private void getPreferences() {
 
         SharedPreferences sp = getSharedPreferences("localDataBase", Context.MODE_PRIVATE);
@@ -126,7 +127,7 @@ public class TimeSlotInfo extends AppCompatActivity {
             }
         });
     }
-
+    // when come back to this class
     @Override
     protected void onResume() {
         super.onResume();
@@ -145,14 +146,14 @@ public class TimeSlotInfo extends AppCompatActivity {
             //waiting seconds
         }, 5000);
     }
-
+    //upper right plus icon
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
+    // when click upper right plus icon
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -164,12 +165,5 @@ public class TimeSlotInfo extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        finish();
-//        return super.onSupportNavigateUp();
-//    }
 }
 

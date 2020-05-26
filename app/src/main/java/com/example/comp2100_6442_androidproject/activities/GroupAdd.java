@@ -50,12 +50,13 @@ public class GroupAdd extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_add);
-
+        //action bar on right top
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
         }
+        //initialize fields
         groupName = findViewById(R.id.mTimeEdit);
         description = findViewById(R.id.mLenEdit);
 
@@ -66,7 +67,7 @@ public class GroupAdd extends AppCompatActivity {
         //initialize the emailString
         SharedPreferences sharedPreferences =getSharedPreferences("localDataBase", Context.MODE_PRIVATE);
         emailString= sharedPreferences.getString("email","");
-
+        //searchView
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -91,11 +92,8 @@ public class GroupAdd extends AppCompatActivity {
                     }
                     //waiting seconds
                 }, 3500);
-
-
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
@@ -103,6 +101,7 @@ public class GroupAdd extends AppCompatActivity {
         });
     }
 
+    //receive the result from UserList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -120,7 +119,7 @@ public class GroupAdd extends AppCompatActivity {
         finish();
         return super.onSupportNavigateUp();
     }
-
+    //When click the save button
     public void addGroupSave(View view) {
 
         if (groupName.getText().toString().isEmpty() || description.getText().toString().isEmpty()) {
@@ -146,10 +145,8 @@ public class GroupAdd extends AppCompatActivity {
         }, 3500);
     }
 
+    //network communication
     private void saveGroup() {
-
-
-
         String parameter = "?groupName=" + groupName.getText().toString().trim()
                 + "&description=" + description.getText().toString().trim()
                 +"&emailString="+emailString;
@@ -178,7 +175,7 @@ public class GroupAdd extends AppCompatActivity {
             }
         });
     }
-
+    //search user network communication
     private void searchUser(String contents) {
         String parameter = "?searchContents=" + contents;
 
@@ -202,9 +199,5 @@ public class GroupAdd extends AppCompatActivity {
                 }
             }
         });
-
-
     }
-
-
 }

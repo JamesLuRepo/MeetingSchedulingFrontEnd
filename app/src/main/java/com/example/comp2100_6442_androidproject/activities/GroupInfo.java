@@ -61,9 +61,7 @@ public class GroupInfo extends AppCompatActivity {
 
     List<User> users;
 
-
-
-
+    //initialize
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +111,7 @@ public class GroupInfo extends AppCompatActivity {
 
     }
 
+    //right top of the screen
     @Override
     public boolean onSupportNavigateUp() {
         finish();
@@ -127,7 +126,7 @@ public class GroupInfo extends AppCompatActivity {
 
     }
 
-
+    //when come back to this activity
     @Override
     protected void onResume() {
         super.onResume();
@@ -148,9 +147,9 @@ public class GroupInfo extends AppCompatActivity {
             }
             //waiting seconds
         }, 5000);
-
     }
 
+    //to add meeting in the group
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.add_meeting) {
@@ -164,7 +163,7 @@ public class GroupInfo extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    //update the meetings viewList
     private void updateMeetings(){
 
         ListView listView = (ListView) findViewById(R.id.listViewOfMeetingsInGroupInfo);
@@ -189,6 +188,7 @@ public class GroupInfo extends AppCompatActivity {
             }
         });
     }
+    //update groupMembers listView
     private void updateGroupMembers(){
         ListView listView = (ListView) findViewById(R.id.listViewOfMembersInGroupInfo);
         List<Map<String, Object>> listItems = new ArrayList<>();
@@ -215,7 +215,7 @@ public class GroupInfo extends AppCompatActivity {
 
     }
 
-
+    //network connection
     private void getMeetings(String gpsId) {
         String parameter = "?gid=" + gpsId;
         Call task = ConnectionTemplate.getConnection("/getMeetings", parameter);
@@ -248,12 +248,9 @@ public class GroupInfo extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 
-
+    //network connection
     private void getGroupMembers(String gpsId) {
         String parameter = "?gid=" + gpsId;
         Call task = ConnectionTemplate.getConnection("/getGroupMembers", parameter);
@@ -279,10 +276,5 @@ public class GroupInfo extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
-
-
 }

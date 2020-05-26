@@ -1,5 +1,8 @@
 package com.example.comp2100_6442_androidproject.domain;
 
+/**
+ * this is the java Bean for Groups, which is used to transform between java and json
+ */
 public class Gps {
 
     private Integer gid;

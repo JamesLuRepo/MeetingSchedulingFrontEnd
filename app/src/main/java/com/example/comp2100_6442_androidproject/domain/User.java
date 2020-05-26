@@ -1,5 +1,8 @@
 package com.example.comp2100_6442_androidproject.domain;
 
+/**
+ * this is the java Bean for User, which is used to transform between java and json
+ */
 public class User {
     String email;
     String name;

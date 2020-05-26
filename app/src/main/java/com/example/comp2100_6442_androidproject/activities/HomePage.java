@@ -60,19 +60,44 @@ public class HomePage extends AppCompatActivity {
     List<String> scheduleMid;
 
     Gson gson = new Gson();
-    private boolean isSecondTime = false;
-    private boolean isSaveSuccessfully= false;
+    private boolean isSaveSuccessfully = false;
+    private  boolean isFirstJump=true;
 
-
+    //when click the bottom button
     View.OnClickListener l = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            final ProgressDialog progressDialog = new ProgressDialog(HomePage.this);
+
             switch (v.getId()) {
                 case R.id.navigation_groups:
-                    updateHomePage();
+                    getGroups();
+
+                    progressDialog.setMessage("Loading...");
+                    progressDialog.show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {// delay 5 millis and then run this
+                            progressDialog.dismiss();
+                            updateHomePage();
+                        }
+                        //waiting seconds
+                    }, 2000);
+
+
                     break;
                 case R.id.navigation_schedule:
-                    updateSchedulePage();
+                    getSchedules();
+                    progressDialog.setMessage("Loading...");
+                    progressDialog.show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {// delay 5 millis and then run this
+                            progressDialog.dismiss();
+                            updateSchedulePage();
+                        }
+                        //waiting seconds
+                    }, 2000);
                     break;
                 case R.id.navigation_settings:
                     updateSettingPage();
@@ -81,8 +106,7 @@ public class HomePage extends AppCompatActivity {
         }
     };
 
-
-
+    // upper right on the screen
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -90,31 +114,26 @@ public class HomePage extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
 
     }
+
+    // when choose add groups
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.add_group:
-                Intent intent = new Intent(this,GroupAdd.class);
-                startActivity(intent);
-                return true;
-            case R.id.add_meeting:
-                Intent intent1 = new Intent(this,MeetingAdd.class);
-                startActivity(intent1);
-                return true;
-                default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.add_group) {
+            Intent intent = new Intent(this, GroupAdd.class);
+            startActivity(intent);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
-
-
+    //initialize the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(this, LogInPage.class);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-         //   actionBar.setDisplayHomeAsUpEnabled(true);
+            //   actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
         }
 
@@ -125,8 +144,8 @@ public class HomePage extends AppCompatActivity {
         scheduleNames = new ArrayList<>();
         scheduleMid = new ArrayList<>();
 
-        startActivity(intent);
         setContentView(R.layout.activity_home_page);
+        jumpToLogInPage();
 
         ImageView navigationGro = (ImageView) findViewById(R.id.navigation_groups);
         ImageView navigationSch = (ImageView) findViewById(R.id.navigation_schedule);
@@ -135,66 +154,95 @@ public class HomePage extends AppCompatActivity {
         navigationSch.setOnClickListener(l);
         navigationSet.setOnClickListener(l);
 
-        updateHomePage();
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateHomePage();
-    }
-    //actually this is meeting page
-    private void updateHomePage() {
-
-        if (isSecondTime) {
-            getGroups();
-            ListView listView = (ListView) findViewById(R.id.listview);
-            List<Map<String, Object>> listItems = new ArrayList<>();
-
-            for (int i = 0; i < groupNames.size(); i++) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("icon", R.mipmap.groups_img);
-                Log.d(TAG, "updateHomePage: "+gpsId.get(i));
-                map.put("name", "G"+gpsId.get(i)+":"+groupNames.get(i));
-                map.put("description", groupDescriptions.get(i));
-                listItems.add(map);
+        getGroups();
+        final ProgressDialog progressDialog = new ProgressDialog(HomePage.this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {// delay 5 millis and then run this
+                progressDialog.dismiss();
+                updateHomePage();
             }
-            SimpleAdapter adapter = new SimpleAdapter(this, listItems,
-                    R.layout.item, new String[]{"name", "icon", "description"},
-                    new int[]{R.id.name, R.id.img, R.id.info});
-            listView.setAdapter(adapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
-                    Toast.makeText(HomePage.this, map.get("name").toString().split(":")[1], Toast.LENGTH_SHORT).show();
+            //waiting seconds
+        }, 2000);
 
-                    SharedPreferences.Editor editor = getSharedPreferences("localDataBase",MODE_PRIVATE).edit();
-                    //When click one group, the group name and the group description will be saved into the lacal database
-                    editor.putString("gpsName",map.get("name").toString().split(":")[1]);
-                    editor.putString("gpsDescription",map.get("description").toString());
-                    editor.putString("gpsId",map.get("name").toString().split(":")[0].substring(1));
-                    editor.commit();
-
-                    Intent intent = new Intent(HomePage.this, GroupInfo.class);
-                    startActivity(intent);
-                }
-            });
-        } else {
-            isSecondTime = true;
+    }
+    //only open login page once
+    private void jumpToLogInPage(){
+        if (isFirstJump){
+            Intent intent = new Intent(this, LogInPage.class);
+            startActivity(intent);
+            isFirstJump=false;
         }
     }
 
+    // when come back to home page
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getGroups();
+        final ProgressDialog progressDialog = new ProgressDialog(HomePage.this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {// delay 5 millis and then run this
+                progressDialog.dismiss();
+                updateHomePage();
+            }
+            //waiting seconds
+        }, 2000);
+
+    }
+
+    //actually this is meeting page, update the viewList
+    private void updateHomePage() {
+        ListView listView = (ListView) findViewById(R.id.listview);
+        List<Map<String, Object>> listItems = new ArrayList<>();
+
+        for (int i = 0; i < groupNames.size(); i++) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("icon", R.mipmap.groups_img);
+            Log.d(TAG, "updateHomePage: " + gpsId.get(i));
+            map.put("name", "G" + gpsId.get(i) + ":" + groupNames.get(i));
+            map.put("description", groupDescriptions.get(i));
+            listItems.add(map);
+        }
+        SimpleAdapter adapter = new SimpleAdapter(this, listItems,
+                R.layout.item, new String[]{"name", "icon", "description"},
+                new int[]{R.id.name, R.id.img, R.id.info});
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
+                Toast.makeText(HomePage.this, map.get("name").toString().split(":")[1], Toast.LENGTH_SHORT).show();
+
+                SharedPreferences.Editor editor = getSharedPreferences("localDataBase", MODE_PRIVATE).edit();
+                //When click one group, the group name and the group description will be saved into the lacal database
+                editor.putString("gpsName", map.get("name").toString().split(":")[1]);
+                editor.putString("gpsDescription", map.get("description").toString());
+                editor.putString("gpsId", map.get("name").toString().split(":")[0].substring(1));
+                editor.commit();
+
+                Intent intent = new Intent(HomePage.this, GroupInfo.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+    //update the schedule viewList
     private void updateSchedulePage() {
-        getSchedules();
+
         ListView listView = (ListView) findViewById(R.id.listview);
         List<Map<String, Object>> listItems = new ArrayList<>();
 
         for (int i = 0; i < scheduleNames.size(); i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("icon", R.mipmap.meetings_img);
-            map.put("name", "M"+scheduleMid.get(i)+":"+scheduleNames.get(i));
+            map.put("name", "M" + scheduleMid.get(i) + ":" + scheduleNames.get(i));
             map.put("description", scheduleDescriptions.get(i));
             listItems.add(map);
         }
@@ -207,7 +255,7 @@ public class HomePage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
                 Toast.makeText(HomePage.this, map.get("name").toString().split(":")[1], Toast.LENGTH_SHORT).show();
-                isSaveSuccessfully=false;
+                isSaveSuccessfully = false;
                 getMeetingInformation(map.get("name").toString().split(":")[0].substring(1));
                 // the progressDialog to wait for the respond
                 final ProgressDialog progressDialog = new ProgressDialog(HomePage.this);
@@ -217,14 +265,12 @@ public class HomePage extends AppCompatActivity {
                     @Override
                     public void run() {// delay 3.5 millis and then run this
                         progressDialog.dismiss();
-                        //TODO: PUT THE CODE HERE TO OPEN THE MEETING INFORMATION ACTIVITY FROM THE SCHEDULE LIST
-                        if (isSaveSuccessfully){
+                        if (isSaveSuccessfully) {
                             Intent intent = new Intent(HomePage.this, MeetingInfo.class);
                             startActivity(intent);
-                        }else {
+                        } else {
                             Toast.makeText(HomePage.this, "click again to get network response", Toast.LENGTH_SHORT).show();
                         }
-
 
 
                     }
@@ -235,16 +281,14 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
+    //jump to the setting page
     private void updateSettingPage() {
         Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
 
     }
 
-
-
-
-
+    //network connection
     private void getGroups() {
         // get data from the local database
         SharedPreferences sp = getSharedPreferences("localDataBase", Context.MODE_PRIVATE);
@@ -277,13 +321,13 @@ public class HomePage extends AppCompatActivity {
                     for (Gps gps : gpsList) {
                         groupNames.add(gps.getName());
                         groupDescriptions.add(gps.getDescription());
-                        gpsId.add(gps.getGid()+"");
+                        gpsId.add(gps.getGid() + "");
                     }
                 }
             }
         });
     }
-
+    //network connection
     private void getSchedules() {
         SharedPreferences sp = getSharedPreferences("localDataBase", Context.MODE_PRIVATE);
         email = sp.getString("email", "");
@@ -313,51 +357,16 @@ public class HomePage extends AppCompatActivity {
                     for (ScheduleShow scheduleShow : scheduleList) {
                         scheduleNames.add(scheduleShow.getName());
                         scheduleDescriptions.add(scheduleShow.getInfo());
-                        scheduleMid.add(scheduleShow.getMid()+"");
+                        scheduleMid.add(scheduleShow.getMid() + "");
 
                     }
                 }
             }
         });
     }
-//    private void getSettings() {
-//        SharedPreferences sp = getSharedPreferences("localDataBase", Context.MODE_PRIVATE);
-//        email = sp.getString("email", "");
-//        String parameter = "?email=" + this.email;
-//        Call task = ConnectionTemplate.getConnection("/userSchedule", parameter);
-//        task.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-//                Log.d(TAG, "onFailure: " + e.toString());
-//            }
-//
-//            @Override
-//            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-//                int code = response.code();
-//                Log.d(TAG, "code: " + code);
-//                if (code == HttpURLConnection.HTTP_OK) {
-//                    ResponseBody body = response.body();
-//
-//                    String bodyString = body.string();
-//                    Log.d(TAG, "body: " + bodyString);
-//                    scheduleList = gson.fromJson(bodyString, new TypeToken<List<ScheduleShow>>() {
-//                    }.getType());
-//                    Log.d(TAG, "gpsList: " + scheduleList);
-//                    scheduleNames.clear();
-//                    scheduleDescriptions.clear();
-//                    for (ScheduleShow scheduleShow : scheduleList) {
-//                        scheduleNames.add(scheduleShow.getName());
-//                        scheduleDescriptions.add(scheduleShow.getInfo());
-//                        scheduleMid.add(scheduleShow.getMid()+"");
-//
-//                    }
-//                }
-//            }
-//        });
-//    }
-
-    private void getMeetingInformation(String mid){
-        Log.d(TAG, "getMeetingInformation: mid:"+mid);
+    //network connection prepare for opening the meetings
+    private void getMeetingInformation(String mid) {
+        Log.d(TAG, "getMeetingInformation: mid:" + mid);
         String parameter = "?mid=" + mid;
         Call task = ConnectionTemplate.getConnection("/getMeetingInformation", parameter);
         task.enqueue(new Callback() {
@@ -379,18 +388,18 @@ public class HomePage extends AppCompatActivity {
                     Log.d(TAG, "meeting: " + meeting);
 
 
-                    SharedPreferences.Editor editor = getSharedPreferences("localDataBase",MODE_PRIVATE).edit();
+                    SharedPreferences.Editor editor = getSharedPreferences("localDataBase", MODE_PRIVATE).edit();
                     //When click one schedule, the the meeting information will be saved into the local database
-                    editor.putString("meetingName",meeting.getName());
-                    editor.putString("meetingNotes",meeting.getNotes());
-                    editor.putString("meetingHoldTime",meeting.getHoldTime());
-                    editor.putString("meetingTimeLength",meeting.getTimeLength()+"");
-                    editor.putString("meetingLocation",meeting.getLocation());
-                    editor.putString("meetingScheduling_ddl",meeting.getScheduling_ddl());
-                    editor.putString("meetingMId",meeting.getMid()+"");
-                    editor.putString("meetingGId",meeting.getGpsGid()+"");
+                    editor.putString("meetingName", meeting.getName());
+                    editor.putString("meetingNotes", meeting.getNotes());
+                    editor.putString("meetingHoldTime", meeting.getHoldTime());
+                    editor.putString("meetingTimeLength", meeting.getTimeLength() + "");
+                    editor.putString("meetingLocation", meeting.getLocation());
+                    editor.putString("meetingScheduling_ddl", meeting.getScheduling_ddl());
+                    editor.putString("meetingMId", meeting.getMid() + "");
+                    editor.putString("meetingGId", meeting.getGpsGid() + "");
                     editor.commit();
-                    isSaveSuccessfully=true;
+                    isSaveSuccessfully = true;
 
                 }
             }

@@ -69,6 +69,7 @@ public class ModifyMeeting extends AppCompatActivity {
 
     Meeting meeting;
 
+    //initialize this activities
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,11 +117,13 @@ public class ModifyMeeting extends AppCompatActivity {
 
         gson = new Gson();
     }
+    //upper left arrow
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
     }
+    //set hold time
     public void setHoldTime(View view) {
 
 
@@ -140,7 +143,7 @@ public class ModifyMeeting extends AppCompatActivity {
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
-
+    //set deadline
     public void setDeadlineTime(View view) {
 
 
@@ -162,6 +165,7 @@ public class ModifyMeeting extends AppCompatActivity {
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    //when click the save button
     public void saveMeeting(View view) {
         nameString = name.getText().toString().trim();
         notesString = notes.getText().toString().trim();
@@ -222,6 +226,7 @@ public class ModifyMeeting extends AppCompatActivity {
             //waiting seconds
         }, 5000);
     }
+    //network connection
     public void postMeetingInfo(String meetingJson) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(20000, TimeUnit.MILLISECONDS)

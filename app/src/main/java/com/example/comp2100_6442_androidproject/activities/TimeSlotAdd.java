@@ -31,7 +31,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -58,6 +61,7 @@ public class TimeSlotAdd extends AppCompatActivity {
     Gson gson;
     private boolean isSaveSuccessful;
 
+    //initialize the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,14 +82,15 @@ public class TimeSlotAdd extends AppCompatActivity {
         isSaveSuccessful=false;
 
     }
-
+    //upper left arrow
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
     }
-
+    //set start time
     public void setStartTime(View view) {
+        startTimeString = "";
 
         new TimePickerDialog(TimeSlotAdd.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -97,12 +102,14 @@ public class TimeSlotAdd extends AppCompatActivity {
         new DatePickerDialog(TimeSlotAdd.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                monthOfYear ++;
                 startTimeString = year + "-" + monthOfYear + "-" + dayOfMonth + " ";
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
-
+    //set end time
     public void setEndTime(View view) {
+        endTimeString = "";
         new TimePickerDialog(TimeSlotAdd.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -113,13 +120,36 @@ public class TimeSlotAdd extends AppCompatActivity {
         new DatePickerDialog(TimeSlotAdd.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                monthOfYear++;
                 endTimeString = year + "-" + monthOfYear + "-" + dayOfMonth + " ";
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
-
+    // when click SAVE
     public void savePreference(View view) {
         isSaveSuccessful=false;
+
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Date startDate = null;
+        Date endDate = null;
+
+        try {
+            startDate=sdf.parse(startTimeString);
+            endDate=sdf.parse(endTimeString);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long startMillisecond = startDate.getTime();
+        long endMillisecond = endDate.getTime();
+        if (startMillisecond>endMillisecond){
+            Toast.makeText(this, "Your time setting is illegal, please reset!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         addPreference();
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -140,7 +170,7 @@ public class TimeSlotAdd extends AppCompatActivity {
         }, 5000);
 
     }
-
+    //network connection
     private void addPreference() {
         SharedPreferences sp = getSharedPreferences("localDataBase", Context.MODE_PRIVATE);
         String email = sp.getString("email", "");
