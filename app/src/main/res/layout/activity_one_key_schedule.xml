@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.OneKeySchedule"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Available meetings: "
+        android:textSize="36sp"
+        android:textColor="#000000"/>
+    <ListView
+        android:id="@+id/listViewOfAvailableMeetings"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:layout_alignBottom="@id/navigation"></ListView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Unavailable meetings: "
+        android:textSize="36sp"
+        android:textColor="#000000"/>
+    <ListView
+        android:id="@+id/listViewOfUnavailableMeetings"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:layout_alignBottom="@id/navigation"></ListView>
+
+
+
+</LinearLayout>

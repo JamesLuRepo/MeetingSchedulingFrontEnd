@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activities.Settings">
-<!--    <item-->
-<!--        android:id="@+id/add_meeting"-->
-<!--        android:title="Add meeting" />-->
+    <item
+        android:id="@+id/one_key_schedule"
+        android:title="One key schedule" />
     <item
         android:id="@+id/add_group"
         android:menuCategory="container"

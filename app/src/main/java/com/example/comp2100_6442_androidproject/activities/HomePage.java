@@ -122,6 +122,10 @@ public class HomePage extends AppCompatActivity {
             Intent intent = new Intent(this, GroupAdd.class);
             startActivity(intent);
             return true;
+        }else if (item.getItemId() == R.id.one_key_schedule){
+            Intent intent = new Intent(this, OneKeySchedule.class);
+            startActivity(intent);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

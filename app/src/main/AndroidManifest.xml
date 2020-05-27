@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ModifyMeeting"></activity>
+        <activity android:name=".activities.OneKeySchedule"></activity>
+        <activity android:name=".activities.ModifyMeeting" />
         <activity android:name=".activities.UserList" />
         <activity
             android:name=".activities.GroupInfo"
