@@ -101,57 +101,80 @@ public class MeetingAdd extends AppCompatActivity {
         gpsId = bundle.getString("gpsId", "");
 
         gson = new Gson();
-
-
     }
-
     //upper left arraw
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
     }
-
     //setHold time
     public void setHoldTime(View view) {
-
-        holdTimeString="";
+        holdTimeString = "";
         new TimePickerDialog(MeetingAdd.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                holdTimeString = holdTimeString + hourOfDay + ":" + minute + ":" + "00";
-                ausHoldTimeString = ausHoldTimeString + hourOfDay + ":" + minute;
-                holdTime.setText(ausHoldTimeString);
+                String hour = hourOfDay + "";
+                String min = minute + "";
+                if (hourOfDay < 10) {
+                    hour = "0" + hour;
+                }
+                if (minute < 10) {
+                    min = "0" + min;
+                }
+                holdTimeString = holdTimeString + hour + ":" + min + ":" + "00";
+                holdTime.setText(holdTimeString);
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
         new DatePickerDialog(MeetingAdd.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 monthOfYear++;
-                holdTimeString = year + "-" + monthOfYear + "-" + dayOfMonth + " ";
-                ausHoldTimeString = dayOfMonth + "." + monthOfYear + "." + year + " ";
+                String month = monthOfYear + "";
+                String day = dayOfMonth + "";
+                if (monthOfYear < 10) {
+                    month = "0" + month;
+                }
+                if (dayOfMonth < 10) {
+                    day = "0" + day;
+                }
+                holdTimeString = year + "-" + month + "-" + day + " ";
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
     //set deadline time
     public void setDeadlineTime(View view) {
-
-        deadlineString="";
+        deadlineString = "";
         new TimePickerDialog(MeetingAdd.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                deadlineString = deadlineString + hourOfDay + ":" + minute + ":" + "00";
-                ausDeadlineString = ausDeadlineString + hourOfDay + ":" + minute;
-                deadline.setText(ausDeadlineString);
+                String hour = hourOfDay + "";
+                String min = minute + "";
+                if (hourOfDay < 10) {
+                    hour = "0" + hour;
+                }
+                if (minute < 10) {
+                    min = "0" + min;
+                }
+
+                deadlineString = deadlineString + hour + ":" + min + ":" + "00";
+
+                deadline.setText(deadlineString);
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
-
         new DatePickerDialog(MeetingAdd.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 monthOfYear++;
-                deadlineString = year + "-" + monthOfYear + "-" + dayOfMonth + " ";
-                ausDeadlineString = dayOfMonth + "." + monthOfYear + "." + year + " ";
+                String month = monthOfYear + "";
+                String day = dayOfMonth + "";
+                if (monthOfYear < 10) {
+                    month = "0" + month;
+                }
+                if (dayOfMonth < 10) {
+                    day = "0" + day;
+                }
+                deadlineString = year + "-" + month + "-" + day + " ";
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
 
@@ -162,19 +185,14 @@ public class MeetingAdd extends AppCompatActivity {
         notesString = notes.getText().toString().trim();
         durationString = duration.getText().toString().trim();
         locationString = location.getText().toString().trim();
-
         if (nameString.isEmpty() || notesString.isEmpty() || durationString.isEmpty() || locationString.isEmpty()) {
             Toast.makeText(this, "Please fill in the blank!", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (holdTimeString.isEmpty()||deadlineString.isEmpty()){
+        if (holdTimeString.isEmpty() || deadlineString.isEmpty()) {
             Toast.makeText(this, "Please choose time!", Toast.LENGTH_SHORT).show();
             return;
         }
-
-
-
-
         Meeting meeting = new Meeting(null,
                 nameString,
                 notesString,
@@ -184,18 +202,14 @@ public class MeetingAdd extends AppCompatActivity {
                 deadlineString,
                 Integer.parseInt(gpsId));
         String meetingJson = gson.toJson(meeting);
-        isSaveSuccessful=false;
+        isSaveSuccessful = false;
         postMeetingInfo(meetingJson);
-
-
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Saving...");
         progressDialog.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {// delay 5 millis and then run this
-
-
                 progressDialog.dismiss();
                 //dismiss the dialog and Toast or switch activity
                 if (isSaveSuccessful) {
@@ -205,51 +219,29 @@ public class MeetingAdd extends AppCompatActivity {
                 }
             }
             //waiting seconds
-        }, 4000);
+        }, 5000);
     }
+
     // network connection
     public void postMeetingInfo(String meetingJson) {
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(60000, TimeUnit.MILLISECONDS)
-                .build();
 
-
-        MediaType mediaType = MediaType.parse("application/json");
-
-        RequestBody requestBody = RequestBody.create(meetingJson, mediaType);
-
-        Request request = new Request.Builder()
-                .post(requestBody)
-                .url("http://49.234.105.82:8080/ms" + "/meetingAdd")
-                .build();
-
-        Call task = client.newCall(request);
+        Call task = ConnectionTemplate.postConnection("/meetingAdd", meetingJson);
         task.enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.d(TAG, "onFailure: " + e.toString());
-
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 int code = response.code();
-                Log.d(TAG, "code:" + code);
                 if (code == HttpsURLConnection.HTTP_OK) {
                     ResponseBody body = response.body();
                     if (body != null) {
                         String s = body.string();
-                            isSaveSuccessful = true;
-                        Log.d(TAG, "result: " +s);
-
+                        isSaveSuccessful = true;
                     }
-
                 }
-
             }
         });
-
     }
-
-
 }

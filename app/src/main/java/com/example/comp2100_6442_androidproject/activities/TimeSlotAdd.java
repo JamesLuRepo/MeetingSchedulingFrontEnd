@@ -95,7 +95,16 @@ public class TimeSlotAdd extends AppCompatActivity {
         new TimePickerDialog(TimeSlotAdd.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                startTimeString = startTimeString + hourOfDay + ":" + minute + ":" + "00";
+                String hour = hourOfDay+"";
+                String min= minute+"";
+                if (hourOfDay<10){
+                    hour="0"+hour;
+                }
+                if(minute<10){
+                    min="0"+min;
+                }
+
+                startTimeString = startTimeString + hour + ":" + min + ":" + "00";
                 showStartTime.setText(startTimeString);
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
@@ -103,7 +112,16 @@ public class TimeSlotAdd extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 monthOfYear ++;
-                startTimeString = year + "-" + monthOfYear + "-" + dayOfMonth + " ";
+                String month=monthOfYear+"";
+                String day = dayOfMonth+"";
+                if(monthOfYear<10){
+                    month="0"+month;
+                }
+                if(dayOfMonth<10){
+                    day="0"+day;
+                }
+
+                startTimeString = year + "-" + month + "-" + day + " ";
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
@@ -113,7 +131,16 @@ public class TimeSlotAdd extends AppCompatActivity {
         new TimePickerDialog(TimeSlotAdd.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                endTimeString = endTimeString + hourOfDay + ":" + minute + ":" + "00";
+
+                String hour = hourOfDay+"";
+                String min= minute+"";
+                if (hourOfDay<10){
+                    hour="0"+hour;
+                }
+                if(minute<10){
+                    min="0"+min;
+                }
+                endTimeString = endTimeString + hour + ":" + min + ":" + "00";
                 showEndTime.setText(endTimeString);
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
@@ -121,7 +148,15 @@ public class TimeSlotAdd extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 monthOfYear++;
-                endTimeString = year + "-" + monthOfYear + "-" + dayOfMonth + " ";
+                String month=monthOfYear+"";
+                String day = dayOfMonth+"";
+                if(monthOfYear<10){
+                    month="0"+month;
+                }
+                if(dayOfMonth<10){
+                    day="0"+day;
+                }
+                endTimeString = year + "-" + month + "-" + day + " ";
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
@@ -153,7 +188,7 @@ public class TimeSlotAdd extends AppCompatActivity {
         addPreference();
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Checking...");
+        progressDialog.setMessage("Saving...");
         progressDialog.show();
         new Handler().postDelayed(new Runnable() {
             @Override

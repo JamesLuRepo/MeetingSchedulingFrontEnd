@@ -30,7 +30,6 @@ public class MeetingInfo extends AppCompatActivity {
     TextView location;
     TextView deadline;
 
-
     String mIdString;
     String nameString;
     String notesString;

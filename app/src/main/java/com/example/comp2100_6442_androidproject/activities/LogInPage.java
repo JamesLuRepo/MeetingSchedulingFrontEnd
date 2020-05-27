@@ -60,6 +60,7 @@ public class LogInPage extends AppCompatActivity {
 
     }
 
+    //exit the activity
     public void exit() {
         if ((System.currentTimeMillis() - exitTime) > 2000) {
             Toast.makeText(getApplicationContext(), "click again to exit", Toast.LENGTH_SHORT).show();

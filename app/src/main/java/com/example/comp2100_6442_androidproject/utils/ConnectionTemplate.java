@@ -3,8 +3,10 @@ package com.example.comp2100_6442_androidproject.utils;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class ConnectionTemplate {
 
@@ -26,6 +28,24 @@ public class ConnectionTemplate {
 
         return okHttpClient.newCall(request);
 
+    }
+
+    public static Call postConnection(String servlet,String bodyString){
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(20000, TimeUnit.MILLISECONDS)
+                .build();
+
+
+        MediaType mediaType = MediaType.parse("application/json");
+
+        RequestBody requestBody = RequestBody.create(bodyString, mediaType);
+
+        Request request = new Request.Builder()
+                .post(requestBody)
+                .url(BASE_URL + servlet)
+                .build();
+
+        return client.newCall(request);
     }
 
 

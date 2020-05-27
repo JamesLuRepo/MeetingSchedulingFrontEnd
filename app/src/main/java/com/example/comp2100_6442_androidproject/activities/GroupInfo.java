@@ -107,7 +107,7 @@ public class GroupInfo extends AppCompatActivity {
 
             }
             //waiting seconds
-        }, 5000);
+        }, 6000);
 
     }
 

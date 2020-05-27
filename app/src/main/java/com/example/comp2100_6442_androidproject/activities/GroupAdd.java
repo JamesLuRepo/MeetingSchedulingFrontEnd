@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.comp2100_6442_androidproject.R;
 import com.example.comp2100_6442_androidproject.utils.ConnectionTemplate;
+import com.example.comp2100_6442_androidproject.utils.ProgressDialogTemplate;
 
 
 import org.jetbrains.annotations.NotNull;
@@ -72,8 +73,7 @@ public class GroupAdd extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchUser(query);
-                final ProgressDialog progressDialog = new ProgressDialog(GroupAdd.this);
-                progressDialog.setMessage("Searching...");
+                final ProgressDialog progressDialog = ProgressDialogTemplate.showDialog(GroupAdd.this, "Searching...");
                 progressDialog.show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -105,12 +105,13 @@ public class GroupAdd extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==932||resultCode==932){
+        if (requestCode==932&&resultCode==932){
             Bundle bundle = data.getExtras();
             String selectedEmail = bundle.getString("selectedEmail");
-            textView.setText(textView.getText().toString()+"\n"+selectedEmail);
-            emailString= emailString+"~~"+selectedEmail;
-
+            if (!textView.getText().toString().contains(selectedEmail)){
+                textView.setText(textView.getText().toString()+"\n"+selectedEmail);
+                emailString= emailString+"~~"+selectedEmail;
+            }
         }
     }
 
@@ -128,8 +129,7 @@ public class GroupAdd extends AppCompatActivity {
         }
         saveGroup();
 
-        final ProgressDialog progressDialog = new ProgressDialog(GroupAdd.this);
-        progressDialog.setMessage("Searching...");
+        final ProgressDialog progressDialog = ProgressDialogTemplate.showDialog(GroupAdd.this, "Adding...");
         progressDialog.show();
         new Handler().postDelayed(new Runnable() {
             @Override
