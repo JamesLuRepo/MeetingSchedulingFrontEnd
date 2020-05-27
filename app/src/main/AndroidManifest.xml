@@ -13,13 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.OneKeySchedule"></activity>
-        <activity android:name=".activities.ModifyMeeting" />
-        <activity android:name=".activities.UserList" />
+
+        <activity android:name=".activities.OneKeySchedule"
+            android:label="Schedule results"/>
+        <activity android:name=".activities.ModifyMeeting"
+            android:label="meeting modification"/>
+        <activity android:name=".activities.UserList"
+            android:label="Choose a user"/>
         <activity
             android:name=".activities.GroupInfo"
             android:label="Group information" />
-        <activity android:name=".activities.MeetingInfo" />
+        <activity android:name=".activities.MeetingInfo"
+            android:label="Meeting information"/>
         <activity
             android:name=".activities.MeetingAdd"
             android:label="Add new meetings" />
@@ -32,13 +37,16 @@
         <activity
             android:name=".activities.Settings"
             android:label="Settings" />
-        <activity android:name=".activities.LogInPage" />
-        <activity android:name=".activities.SignUpPage" />
+        <activity android:name=".activities.LogInPage"
+            android:label="Please login"/>
+        <activity android:name=".activities.SignUpPage"
+            android:label="Please sign up"/>
         <activity
             android:name=".activities.TimeSlotInfo"
             android:label="Your time slots"
             android:parentActivityName=".activities.Settings" />
-        <activity android:name=".activities.HomePage">
+        <activity android:name=".activities.HomePage"
+            android:label="Groups and meetings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

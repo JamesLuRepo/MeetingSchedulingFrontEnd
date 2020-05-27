@@ -29,7 +29,7 @@ import okhttp3.ResponseBody;
 public class LogInPage extends AppCompatActivity {
     private static final String TAG = "logInPage";
     //exitTime
-    private  long exitTime=0;
+    private long exitTime = 0;
 
 
     EditText emailEditText;
@@ -45,25 +45,26 @@ public class LogInPage extends AppCompatActivity {
         this.emailEditText = findViewById(R.id.LogInEmail);
         this.passwordEditText = findViewById(R.id.LogInPassword);
 
-        logInResult="";
+        logInResult = "";
 
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if (keyCode==KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             exit();
             return true;
         }
         return super.onKeyDown(keyCode, event);
 
     }
-    public void exit(){
-        if ((System.currentTimeMillis()-exitTime)>2000){
-            Toast.makeText(getApplicationContext(),"click again to exit",Toast.LENGTH_SHORT).show();
-            exitTime=System.currentTimeMillis();
-        }else{
+
+    public void exit() {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(getApplicationContext(), "click again to exit", Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
             moveTaskToBack(true);
         }
     }
@@ -85,11 +86,11 @@ public class LogInPage extends AppCompatActivity {
                 //dismiss the dialog and Toast or switch activity
                 if ("successful".equals(logInResult.split("&")[0])) {
                     //save email into the local database
-                    SharedPreferences.Editor editor = getSharedPreferences("localDataBase",MODE_PRIVATE).edit();
-                    editor.putString("email",emailEditText.getText().toString().trim());
+                    SharedPreferences.Editor editor = getSharedPreferences("localDataBase", MODE_PRIVATE).edit();
+                    editor.putString("email", emailEditText.getText().toString().trim());
 
                     //save name into local database
-                    editor.putString("userName",logInResult.split("&")[1]);
+                    editor.putString("userName", logInResult.split("&")[1]);
                     editor.commit();
 
                     finish();

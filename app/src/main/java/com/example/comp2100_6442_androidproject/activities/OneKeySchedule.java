@@ -44,7 +44,7 @@ public class OneKeySchedule extends AppCompatActivity {
     List<ScheduleShow> availableScheduleList;
     List<ScheduleShow> unavailableScheduleList;
 
-
+//Initialize the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +80,7 @@ public class OneKeySchedule extends AppCompatActivity {
         }, 6000);
 
     }
-
+    //update the unavailable meeting list
     private void updateUnavailableMeetingListView(){
         ListView listView = (ListView) findViewById(R.id.listViewOfUnavailableMeetings);
         List<Map<String, Object>> listItems = new ArrayList<>();
@@ -106,7 +106,7 @@ public class OneKeySchedule extends AppCompatActivity {
         });
     }
 
-
+    //update the available meeting list
     private void updateAvailableMeetingListView(){
         ListView listView = (ListView) findViewById(R.id.listViewOfAvailableMeetings);
         List<Map<String, Object>> listItems = new ArrayList<>();
@@ -133,7 +133,7 @@ public class OneKeySchedule extends AppCompatActivity {
     }
 
 
-
+    //network connection
     private void getAvailableScheduleShowList() {
         String parameter = "?email=" + this.email;
         Call task = ConnectionTemplate.getConnection("/availableMeeting", parameter);
@@ -160,7 +160,7 @@ public class OneKeySchedule extends AppCompatActivity {
             }
         });
     }
-
+    //network connection
     private void getUnavailableScheduleShowList() {
         String parameter = "?email=" + this.email;
         Call task = ConnectionTemplate.getConnection("/unavailableMeeting", parameter);

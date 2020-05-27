@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -61,7 +62,8 @@ public class HomePage extends AppCompatActivity {
 
     Gson gson = new Gson();
     private boolean isSaveSuccessfully = false;
-    private  boolean isFirstJump=true;
+    private boolean isFirstJump = true;
+    private long exitTime = 0;
 
     //when click the bottom button
     View.OnClickListener l = new View.OnClickListener() {
@@ -122,7 +124,7 @@ public class HomePage extends AppCompatActivity {
             Intent intent = new Intent(this, GroupAdd.class);
             startActivity(intent);
             return true;
-        }else if (item.getItemId() == R.id.one_key_schedule){
+        } else if (item.getItemId() == R.id.one_key_schedule) {
             Intent intent = new Intent(this, OneKeySchedule.class);
             startActivity(intent);
             return true;
@@ -169,15 +171,16 @@ public class HomePage extends AppCompatActivity {
                 updateHomePage();
             }
             //waiting seconds
-        }, 2000);
+        }, 3000);
 
     }
+
     //only open login page once
-    private void jumpToLogInPage(){
-        if (isFirstJump){
+    private void jumpToLogInPage() {
+        if (isFirstJump) {
             Intent intent = new Intent(this, LogInPage.class);
             startActivity(intent);
-            isFirstJump=false;
+            isFirstJump = false;
         }
     }
 
@@ -197,7 +200,7 @@ public class HomePage extends AppCompatActivity {
                 updateHomePage();
             }
             //waiting seconds
-        }, 2000);
+        }, 3000);
 
     }
 
@@ -237,6 +240,7 @@ public class HomePage extends AppCompatActivity {
         });
 
     }
+
     //update the schedule viewList
     private void updateSchedulePage() {
 
@@ -285,6 +289,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
+
     //jump to the setting page
     private void updateSettingPage() {
         Intent intent = new Intent(this, Settings.class);
@@ -331,6 +336,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
+
     //network connection
     private void getSchedules() {
         SharedPreferences sp = getSharedPreferences("localDataBase", Context.MODE_PRIVATE);
@@ -368,6 +374,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
+
     //network connection prepare for opening the meetings
     private void getMeetingInformation(String mid) {
         Log.d(TAG, "getMeetingInformation: mid:" + mid);
@@ -408,6 +415,26 @@ public class HomePage extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+
+    }
+
+    public void exit() {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(getApplicationContext(), "click again to exit", Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            moveTaskToBack(true);
+        }
     }
 
 }
