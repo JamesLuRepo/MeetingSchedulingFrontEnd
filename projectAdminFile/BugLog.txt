@@ -1,3 +1,0 @@
-1.sign_up_page.java (28.4.2020)
-	1. The sending verification Code request should be limited. People should send verification code after 60 seconds, because we need to make sure the response can be received.
-	2. The name of class should be changed to fit java naming formation.

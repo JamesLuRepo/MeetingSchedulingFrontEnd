@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Available meetings: "
+        android:text="@string/available_meetings"
         android:textSize="36sp"
         android:textColor="#000000"/>
     <ListView
@@ -22,7 +22,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Unavailable meetings: "
+        android:text="@string/unavailable_meetings"
         android:textSize="36sp"
         android:textColor="#000000"/>
     <ListView

@@ -16,7 +16,7 @@
         android:layout_marginBottom="12dp"
         android:layout_marginTop="30dp"
         android:onClick="SetPre"
-        android:text="View Time Slots"
+        android:text="@string/view_time_slots"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -30,7 +30,7 @@
         android:layout_marginEnd="176dp"
         android:layout_marginRight="176dp"
         android:layout_marginBottom="68dp"
-        android:text="v1.0"
+        android:text="@string/v1_0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.897"
@@ -47,7 +47,7 @@
         android:layout_marginRight="162dp"
         android:layout_marginBottom="244dp"
         android:onClick="LogOut"
-        android:text="Log Out"
+        android:text="@string/log_out"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -57,7 +57,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -80,7 +80,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@mipmap/bob"/>
-<!--        app:srcCompat="@drawable/ic_account_circle_black_24dp"
-        tools:srcCompat="@drawable/ic_account_circle_black_24dp"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

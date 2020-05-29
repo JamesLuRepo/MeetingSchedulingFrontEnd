@@ -24,7 +24,7 @@
         android:layout_marginTop="10dp"
         android:clickable="true"
         android:onClick="SendVerificationCode"
-        android:text="Send verification code to the email"
+        android:text="@string/send_verification_code_to_the_email"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
         android:clickable="true"
 
         android:onClick="BackHome"
-        android:text="Back Home"
+        android:text="@string/back_home"
         app:layout_constraintEnd_toStartOf="@+id/BackImage"
         app:layout_constraintTop_toBottomOf="@+id/noteEdit" />
 
@@ -65,7 +65,7 @@
         android:layout_marginRight="50dp"
         android:clickable="true"
         android:onClick="BackHome"
-        android:text="Back Home"
+        android:text="@string/back_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/noteEdit"
         app:srcCompat="@android:drawable/ic_menu_revert" />
@@ -76,7 +76,7 @@
         android:layout_height="45dp"
         android:layout_marginTop="50dp"
         android:onClick="Sign_up_successful_button"
-        android:text="Sign Up"
+        android:text="@string/sign_up"
         app:layout_constraintStart_toStartOf="@+id/noteEdit"
         app:layout_constraintTop_toBottomOf="@+id/noteEdit" />
 
@@ -107,7 +107,7 @@
         android:id="@+id/SetName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name:"
+        android:text="@string/name"
         app:layout_constraintBottom_toTopOf="@+id/AccountName"
         app:layout_constraintStart_toStartOf="@+id/AccountName" />
 
@@ -115,7 +115,7 @@
         android:id="@+id/VerificationCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Verification code:"
+        android:text="@string/verification_code"
         app:layout_constraintBottom_toTopOf="@+id/locaEdit"
         app:layout_constraintStart_toStartOf="@+id/locaEdit" />
 
@@ -123,7 +123,7 @@
         android:id="@+id/SetPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Password:"
+        android:text="@string/password"
         app:layout_constraintBottom_toTopOf="@+id/noteEdit"
         app:layout_constraintStart_toStartOf="@+id/noteEdit" />
 
@@ -131,7 +131,7 @@
         android:id="@+id/EmailAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email Address:"
+        android:text="@string/email_address"
         app:layout_constraintBottom_toTopOf="@+id/signUpEmailAddress"
         app:layout_constraintStart_toStartOf="@+id/signUpEmailAddress" />
 </androidx.constraintlayout.widget.ConstraintLayout>

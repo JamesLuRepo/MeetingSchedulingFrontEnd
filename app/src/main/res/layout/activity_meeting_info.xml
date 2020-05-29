@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Meeting Id:"
+        android:text="@string/meeting_id"
         android:textSize="36sp"
         android:textColor="#000000"/>
     <TextView
@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Meeting name:"
+        android:text="@string/meeting_name"
         android:textSize="36sp"
         android:textColor="#000000"/>
     <TextView
@@ -33,7 +33,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notes:"
+        android:text="@string/notes1"
         android:textSize="36sp"
         android:textColor="#000000"/>
     <TextView
@@ -45,7 +45,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hold Time:"
+        android:text="@string/hold_time1"
         android:textSize="36sp"
         android:textColor="#000000"/>
     <TextView
@@ -57,7 +57,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Duration:"
+        android:text="@string/duration"
         android:textSize="36sp"
         android:textColor="#000000"/>
     <TextView
@@ -69,7 +69,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Location:"
+        android:text="@string/location1"
         android:textSize="36sp"
         android:textColor="#000000"/>
     <TextView
@@ -81,7 +81,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Deadline:"
+        android:text="@string/deadline1"
         android:textSize="36sp"
         android:textColor="#000000"/>
     <TextView
@@ -94,7 +94,7 @@
         android:id="@+id/modifyMeetingInformation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="MODIFY MEETING INFORMATION"
+        android:text="@string/modify_meeting_information"
         android:textSize="20sp"
         android:onClick="modifyMeeting"/>
 </LinearLayout>
